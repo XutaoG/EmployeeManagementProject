@@ -55,6 +55,18 @@ public class LoginPageController implements Initializable
 
     public void loginAdmin()
     {
+    	// Blank username or password
+      	if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty())
+		{
+			Alert alert = new Alert(AlertType.ERROR);
+			
+			alert.setTitle("Error");
+			alert.setHeaderText("Empty username or password");
+			alert.setContentText("Please fill in all blanks correctly");
+			alert.show();
+			return;
+		}
+
     	connection = Database.connectToDatabase();
     	
     	try
@@ -64,66 +76,52 @@ public class LoginPageController implements Initializable
 			preparedStatement.setString(2, passwordField.getText());
 			
 			resultSet = preparedStatement.executeQuery();
+	
+			// Correct username and password
+			if (resultSet.next())
+			{
+//				Alert alert = new Alert(AlertType.INFORMATION);
+//				
+//				alert.setTitle("Information");
+//				alert.setHeaderText("Login Successfully");
+//				alert.setContentText("You have successfully logged in");
+//				alert.show();
+				
+				// Hide login window and login user
+				mainForm.getScene().getWindow().hide();
+				
+				Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+				Stage stage = new Stage();
+				Scene scene = new Scene(root);
+				
+				// Set window movement
+				root.setOnMousePressed((MouseEvent event) ->
+				{
+					x = event.getSceneX();
+					y = event.getSceneY();
+				});
+				
+				root.setOnMouseDragged((MouseEvent event) ->
+				{
+					stage.setX(event.getScreenX() - x);
+					stage.setY(event.getScreenY() - y);
+				});
+				
+				stage.initStyle(StageStyle.TRANSPARENT);
+				stage.setScene(scene);
+				
+				stage.show();
 			
-			// Empty username or password
-			if (usernameTextField.getText().isEmpty() || passwordField.getText().isEmpty())
+			}
+			// Incorrect username and password
+			else	
 			{
 				Alert alert = new Alert(AlertType.ERROR);
 				
 				alert.setTitle("Error");
-				alert.setHeaderText("Empty username or password");
-				alert.setContentText("Please fill in all blanks correctly");
+				alert.setHeaderText("Incorrect username or password");
+				alert.setContentText("Please check your username or password");
 				alert.show();
-			}
-			// Non-empty username and password
-			else
-			{
-				// Correct username and password
-				if (resultSet.next())
-				{
-					Alert alert = new Alert(AlertType.INFORMATION);
-					
-					alert.setTitle("Information");
-					alert.setHeaderText("Login Successfully");
-					alert.setContentText("You have successfully logged in");
-					alert.show();
-					
-					// Hide login window and login user
-					mainForm.getScene().getWindow().hide();
-					
-					Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-					Stage stage = new Stage();
-					Scene scene = new Scene(root);
-					
-					// Set window movement
-					root.setOnMousePressed((MouseEvent event) ->
-					{
-						x = event.getSceneX();
-						y = event.getSceneY();
-					});
-					
-					root.setOnMouseDragged((MouseEvent event) ->
-					{
-						stage.setX(event.getScreenX() - x);
-						stage.setY(event.getScreenY() - y);
-					});
-					
-					stage.setScene(scene);
-					stage.initStyle(StageStyle.TRANSPARENT);
-					
-					stage.show();
-				
-				}
-				// Incorrect username and password
-				else	
-				{
-					Alert alert = new Alert(AlertType.ERROR);
-					
-					alert.setTitle("Error");
-					alert.setHeaderText("Incorrect username or password");
-					alert.setContentText("Please check your username or password");
-					alert.show();
-				}
 			}
 		}
 		catch (SQLException sqle)
@@ -146,15 +144,6 @@ public class LoginPageController implements Initializable
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
-    	initializeIconDesign();
+    	
     }
-	
-	private void initializeIconDesign()
-	{
-		ColorAdjust colorAdjust = new ColorAdjust();
-		colorAdjust.setBrightness(1);
-		
-		employeeImageView.setEffect(colorAdjust);		
-	}
-
 }

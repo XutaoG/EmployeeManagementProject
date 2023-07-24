@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,6 +27,9 @@
                      <image>
                         <Image url="@../Images/employees.png" />
                      </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                   </ImageView>
                </children>
                <styleClass>
@@ -40,8 +44,8 @@
                         <Font name="Consolas Bold" size="48.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="usernameTextField" layoutX="100.0" layoutY="250.0" onAction="#loginAdmin" prefHeight="40.0" prefWidth="300.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <PasswordField fx:id="passwordField" layoutX="100.0" layoutY="325.0" onAction="#loginAdmin" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
+                  <TextField fx:id="usernameTextField" layoutX="100.0" layoutY="250.0" prefHeight="40.0" prefWidth="300.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
+                  <PasswordField fx:id="passwordField" layoutX="100.0" layoutY="325.0" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
                   <Button fx:id="loginButton" alignment="CENTER" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="40.0" prefWidth="300.0" styleClass="login-button" stylesheets="@loginDesign.css" text="Login" />
                   <Button fx:id="closeButton" layoutX="237.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="53.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                      <graphic>
