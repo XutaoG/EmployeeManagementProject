@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginPageController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginPageController">
    <children>
-      <AnchorPane fx:id="mainForm" prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane fx:id="mainForm" prefHeight="600.0" prefWidth="800.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="300.0" stylesheets="@loginDesign.css">
+            <AnchorPane prefHeight="600.0" prefWidth="300.0" stylesheets="@loginDesign.css">
                <children>
-                  <Label layoutX="26.0" layoutY="189.0" text="Employee Management System" textFill="WHITE">
+                  <Label layoutX="17.0" layoutY="289.0" text="Employee Management System" textFill="WHITE">
                      <font>
                         <Font name="Consolas" size="18.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="97.0" layoutY="162.0" size="100" />
+                  <ImageView fx:id="employeeImageView" fitHeight="194.0" fitWidth="232.0" layoutX="54.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/employees.png" />
+                     </image>
+                  </ImageView>
                </children>
                <styleClass>
                   <String fx:value="left_form" />
                   <String fx:value="left-form" />
                   <String fx:value="left_form" />
                </styleClass></AnchorPane>
-            <AnchorPane layoutX="300.0" prefHeight="400.0" prefWidth="300.0" styleClass="right-form" stylesheets="@loginDesign.css">
+            <AnchorPane layoutX="300.0" prefHeight="600.0" prefWidth="500.0" styleClass="right-form" stylesheets="@loginDesign.css">
                <children>
-                  <Label layoutX="66.0" layoutY="100.0" styleClass="welcome-text" stylesheets="@loginDesign.css" text="Welcome Back!" textFill="#0941b2">
+                  <Label layoutX="80.0" layoutY="150.0" styleClass="welcome-text" stylesheets="@loginDesign.css" text="Welcome Back!" textFill="#0941b2">
                      <font>
-                        <Font name="Consolas Bold" size="24.0" />
+                        <Font name="Consolas Bold" size="48.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="usernameTextField" layoutX="50.0" layoutY="150.0" prefHeight="30.0" prefWidth="200.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <PasswordField fx:id="passwordField" layoutX="50.0" layoutY="200.0" prefHeight="30.0" prefWidth="200.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <Button fx:id="loginButton" alignment="CENTER" layoutX="50.0" layoutY="250.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" styleClass="login-button" stylesheets="@loginDesign.css" text="Login" />
-                  <Button fx:id="closeButton" layoutX="237.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="53.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                  <TextField fx:id="usernameTextField" layoutX="100.0" layoutY="250.0" onAction="#loginAdmin" prefHeight="40.0" prefWidth="300.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
+                  <PasswordField fx:id="passwordField" layoutX="100.0" layoutY="325.0" onAction="#loginAdmin" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
+                  <Button fx:id="loginButton" alignment="CENTER" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="40.0" prefWidth="300.0" styleClass="login-button" stylesheets="@loginDesign.css" text="Login" />
+                  <Button fx:id="closeButton" layoutX="237.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="53.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                      <graphic>
-                        <FontAwesomeIcon glyphName="CLOSE" size="20" />
+                     </graphic>
+                     <graphic>
+                        <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/close.png" />
+                           </image>
+                        </ImageView>
                      </graphic></Button>
                </children>
             </AnchorPane>
