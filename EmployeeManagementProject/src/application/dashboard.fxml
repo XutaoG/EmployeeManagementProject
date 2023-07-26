@@ -5,7 +5,11 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -146,7 +150,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="950.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane prefHeight="750.0" prefWidth="950.0" styleClass="primary-form" stylesheets="@dashboardDesign.css">
+                        <AnchorPane prefHeight="750.0" prefWidth="950.0" styleClass="primary-form" stylesheets="@dashboardDesign.css" visible="false">
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                                  <styleClass>
@@ -231,6 +235,84 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
+                        <AnchorPane prefHeight="750.0" prefWidth="950.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane prefHeight="750.0" prefWidth="950.0" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                                 <styleClass>
+                                    <String fx:value="white-background" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                                 <children>
+                                    <TextField layoutX="1.0" layoutY="14.0" prefHeight="30.0" prefWidth="250.0" promptText="Search" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="23.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../Images/search.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TableView layoutX="9.0" layoutY="60.0" prefHeight="325.0" prefWidth="890.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                                      <columns>
+                                        <TableColumn prefWidth="93.0" text="Employee ID" />
+                                        <TableColumn prefWidth="129.0" text="First Name" />
+                                          <TableColumn prefWidth="131.0" text="Last Name" />
+                                          <TableColumn prefWidth="116.33331298828125" text="Gender" />
+                                          <TableColumn prefWidth="131.66668701171875" text="Phone Number" />
+                                          <TableColumn prefWidth="121.6666259765625" text="Position" />
+                                          <TableColumn prefWidth="171.66668701171875" text="Date Member" />
+                                      </columns>
+                                    </TableView>
+                                    <Label layoutX="22.0" layoutY="417.0" text="Employee ID:">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="123.0" layoutY="408.0" prefHeight="30.0" prefWidth="175.0" />
+                                    <Label layoutX="33.0" layoutY="466.0" text="First Name:">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="123.0" layoutY="459.0" prefHeight="30.0" prefWidth="175.0" />
+                                    <Label layoutX="34.0" layoutY="513.0" text="Last Name:">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="123.0" layoutY="507.0" prefHeight="30.0" prefWidth="175.0" />
+                                    <Label layoutX="55.0" layoutY="564.0" text="Gender:">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox layoutX="123.0" layoutY="557.0" prefHeight="30.0" prefWidth="175.0" />
+                                    <Label layoutX="350.0" layoutY="415.0" text="Phone Number:">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="462.0" layoutY="407.0" prefHeight="30.0" prefWidth="200.0" />
+                                    <Label layoutX="397.0" layoutY="466.0" text="Gender:">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox layoutX="462.0" layoutY="459.0" prefHeight="30.0" prefWidth="200.0" />
+                                    <Button layoutX="790.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="Add" AnchorPane.rightAnchor="15.0" />
+                                    <AnchorPane layoutX="724.0" layoutY="407.0" prefHeight="180.0" prefWidth="180.0" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="15.0">
+                                       <styleClass>
+                                          <String fx:value="white-background" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                       <children>
+                                          <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Button layoutX="640.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="Update" />
+                                    <Button layoutX="470.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="Add" />
+                                    <Button layoutX="320.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="Add" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                </center>
