@@ -80,36 +80,22 @@ public class LoginPageController implements Initializable
 			// Correct username and password
 			if (resultSet.next())
 			{
-//				Alert alert = new Alert(AlertType.INFORMATION);
-//				
-//				alert.setTitle("Information");
-//				alert.setHeaderText("Login Successfully");
-//				alert.setContentText("You have successfully logged in");
-//				alert.show();
+				// Update user data'
+				UserData.username = usernameTextField.getText();
 				
 				// Hide login window and login user
 				mainForm.getScene().getWindow().hide();
 				
-				Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+				Parent root = loader.load();
+				DashboardController dashBoardController = loader.getController();
+				
 				Stage stage = new Stage();
 				Scene scene = new Scene(root);
 				
-				// Set window movement
-				root.setOnMousePressed((MouseEvent event) ->
-				{
-					x = event.getSceneX();
-					y = event.getSceneY();
-				});
-				
-				root.setOnMouseDragged((MouseEvent event) ->
-				{
-					stage.setX(event.getScreenX() - x);
-					stage.setY(event.getScreenY() - y);
-				});
-				
-				stage.initStyle(StageStyle.TRANSPARENT);
 				stage.setScene(scene);
 				
+				dashBoardController.setInitialization(stage);
 				stage.show();
 			
 			}
@@ -145,5 +131,29 @@ public class LoginPageController implements Initializable
     public void initialize(URL arg0, ResourceBundle arg1)
     {
     	
+    }
+    
+    public void setInitialization(Stage stage)
+    {
+    	stage.getScene().setOnMousePressed((MouseEvent event) ->
+		{
+			x = event.getSceneX();
+			y = event.getSceneY();
+		});
+		
+    	stage.getScene().setOnMouseDragged((MouseEvent event) ->
+		{
+			stage.setX(event.getScreenX() - x);
+			stage.setY(event.getScreenY() - y);
+			
+			stage.setOpacity(0.8);
+		});
+		
+    	stage.getScene().setOnMouseReleased((MouseEvent event) ->
+		{
+			stage.setOpacity(1);
+		});
+		
+    	stage.initStyle(StageStyle.TRANSPARENT);
     }
 }

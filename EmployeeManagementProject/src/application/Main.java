@@ -19,32 +19,14 @@ public class Main extends Application
 	{
 		try
 		{
-			Parent root = FXMLLoader.load(getClass().getResource("loginPage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
+			Parent root = loader.load();
+			LoginPageController loginPageController = loader.getController();
 			Scene scene = new Scene(root);
-			
-			root.setOnMousePressed((MouseEvent event) ->
-			{
-				x = event.getSceneX();
-				y = event.getSceneY();
-			});
-			
-			root.setOnMouseDragged((MouseEvent event) ->
-			{
-				primaryStage.setX(event.getScreenX() - x);
-				primaryStage.setY(event.getScreenY() - y);
-				
-				primaryStage.setOpacity(0.8);
-			});
-			
-			root.setOnMouseReleased((MouseEvent event) ->
-			{
-				primaryStage.setOpacity(1);
-			});
-			
-			
-			primaryStage.initStyle(StageStyle.TRANSPARENT);
-
 			primaryStage.setScene(scene);
+			
+			loginPageController.setInitialization(primaryStage);
+			
 			primaryStage.show();
 		}
 		catch (Exception e)
