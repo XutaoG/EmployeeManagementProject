@@ -2,9 +2,16 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -96,28 +104,28 @@ public class DashboardController implements Initializable
     private Button addEmployeeClearButton;
     
     @FXML
-    private TableView<?> addEmployeeTableView;
+    private TableView<EmployeeData> addEmployeeTableView;
 
     @FXML
-    private TableColumn<?, ?> addEmployeeColumnDate;
+    private TableColumn<EmployeeData, String> addEmployeeColumnDate;
 
     @FXML
-    private TableColumn<?, ?> addEmployeeColumnEmployeeID;
+    private TableColumn<EmployeeData, String> addEmployeeColumnEmployeeID;
 
     @FXML
-    private TableColumn<?, ?> addEmployeeColumnFirstName;
+    private TableColumn<EmployeeData, String> addEmployeeColumnFirstName;
 
     @FXML
-    private TableColumn<?, ?> addEmployeeColumnGender;
+    private TableColumn<EmployeeData, String> addEmployeeColumnGender;
 
     @FXML
-    private TableColumn<?, ?> addEmployeeColumnLastName;
+    private TableColumn<EmployeeData, String> addEmployeeColumnLastName;
 
     @FXML
-    private TableColumn<?, ?> addEmployeeColumnPhoneNumber;
+    private TableColumn<EmployeeData, String> addEmployeeColumnPhoneNumber;
 
     @FXML
-    private TableColumn<?, ?> addEmployeeColumnPosition;
+    private TableColumn<EmployeeData, String> addEmployeeColumnPosition;
 
     @FXML
     private TextField addEmployeeEmployeeID;
@@ -188,9 +196,67 @@ public class DashboardController implements Initializable
     private double x;
     private double y;
     
+    private ObservableList<EmployeeData> addEmployeeDataList = null;
+    
+    private Connection connection;
+    private Statement statement;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		addEmployeeShowListData();
+	}
+	
+	public ObservableList<EmployeeData> addEmployeeGetListData()
+	{
+		ObservableList<EmployeeData> observableList = FXCollections.observableArrayList();
+		
+		connection = DatabaseUtility.connectToDatabase();
+		
+		try
+		{
+			preparedStatement = connection.prepareStatement("SELECT * FROM employees");
+			resultSet = preparedStatement.executeQuery();
+			EmployeeData employeeData;
+			
+			while (resultSet.next())
+			{
+				employeeData = new EmployeeData(resultSet.getInt("employeeId"),
+						resultSet.getString("firstName"),
+						resultSet.getString("lastName"),
+						resultSet.getString("gender"),
+						resultSet.getString("phoneNumber"),
+						resultSet.getString("position"),
+						resultSet.getString("image"),
+						resultSet.getDate("date"));
+				
+				observableList.add(employeeData);
+			}
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+		
+		return observableList;
+	}
+	
+	public void addEmployeeShowListData()
+	{
+		addEmployeeDataList = addEmployeeGetListData();
+		
+		addEmployeeColumnEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+		addEmployeeColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		addEmployeeColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		addEmployeeColumnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+		addEmployeeColumnPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+		addEmployeeColumnPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+		addEmployeeColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+		
+		addEmployeeTableView.setItems(addEmployeeDataList);
 		
 	}
 	

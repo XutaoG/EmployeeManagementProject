@@ -3,7 +3,7 @@ package application;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Database
+public class DatabaseUtility
 {
 	public static Connection connectToDatabase()
 	{
@@ -16,7 +16,7 @@ public class Database
 		}
 		catch (Exception e)
 		{
-			System.out.println("Connection error in " + Database.class.getName());
+			System.out.println("Connection error in " + DatabaseUtility.class.getName());
 			e.printStackTrace();
 		}
 		return connection;

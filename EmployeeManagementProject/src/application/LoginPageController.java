@@ -67,7 +67,7 @@ public class LoginPageController implements Initializable
 			return;
 		}
 
-    	connection = Database.connectToDatabase();
+    	connection = DatabaseUtility.connectToDatabase();
     	
     	try
 		{
