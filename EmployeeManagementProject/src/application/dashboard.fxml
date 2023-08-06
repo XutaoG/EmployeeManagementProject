@@ -235,7 +235,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="addEmployeeForm" prefHeight="750.0" prefWidth="950.0" styleClass="primary-form" stylesheets="@dashboardDesign.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="addEmployeeForm" prefHeight="750.0" prefWidth="950.0" styleClass="primary-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="750.0" prefWidth="950.0" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                                  <styleClass>
@@ -249,7 +249,7 @@
                                           <Image url="@../Images/search.png" />
                                        </image>
                                     </ImageView>
-                                    <TableView fx:id="addEmployeeTableView" layoutX="9.0" layoutY="60.0" prefHeight="325.0" prefWidth="890.0" stylesheets="@dashboardDesign.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                                    <TableView fx:id="addEmployeeTableView" layoutX="9.0" layoutY="60.0" onMouseClicked="#addEmployeeSelect" prefHeight="325.0" prefWidth="890.0" stylesheets="@dashboardDesign.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                                       <columns>
                                         <TableColumn fx:id="addEmployeeColumnEmployeeID" prefWidth="93.0" text="Employee ID" />
                                         <TableColumn fx:id="addEmployeeColumnFirstName" prefWidth="129.0" text="First Name" />
@@ -283,32 +283,32 @@
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="addEmployeeGender" layoutX="123.0" layoutY="557.0" prefHeight="30.0" prefWidth="175.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <ComboBox fx:id="addEmployeeGender" layoutX="123.0" layoutY="557.0" onAction="#addEmployeeGenderList" prefHeight="30.0" prefWidth="175.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="350.0" layoutY="415.0" text="Phone Number:">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="addEmployeePhoneNumber" layoutX="462.0" layoutY="407.0" prefHeight="30.0" prefWidth="200.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <Label layoutX="397.0" layoutY="466.0" text="Gender:">
+                                    <Label layoutX="394.0" layoutY="466.0" text="Position:">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="addEmployeeGennder" layoutX="462.0" layoutY="459.0" prefHeight="30.0" prefWidth="200.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <Button fx:id="addEmployeeAddButton" layoutX="790.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" styleClass="add-button" stylesheets="@dashboardDesign.css" text="Add" AnchorPane.rightAnchor="15.0" />
-                                    <AnchorPane layoutX="724.0" layoutY="407.0" prefHeight="180.0" prefWidth="125.0" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="15.0">
+                                    <ComboBox fx:id="addEmployeePosition" layoutX="462.0" layoutY="459.0" onAction="#addEmployeePositionList" prefHeight="30.0" prefWidth="200.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Button fx:id="addEmployeeAddButton" layoutX="790.0" layoutY="625.0" mnemonicParsing="false" onAction="#addEmployeeAdd" prefHeight="40.0" prefWidth="125.0" styleClass="add-button" stylesheets="@dashboardDesign.css" text="Add" AnchorPane.rightAnchor="15.0" />
+                                    <AnchorPane layoutX="716.0" layoutY="407.0" prefHeight="180.0" prefWidth="125.0" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="15.0">
                                        <styleClass>
                                           <String fx:value="white-background" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <ImageView fitHeight="180.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                          <Button fx:id="addEmployeeImportButton" layoutX="50.0" layoutY="132.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" styleClass="import-button" stylesheets="@dashboardDesign.css" text="Import" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                                          <ImageView fx:id="addEmployeeImageView" fitHeight="125.0" fitWidth="125.0" layoutX="57.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                          <Button fx:id="addEmployeeImportButton" layoutX="58.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#addEmployeeInsertImage" prefHeight="40.0" prefWidth="116.0" styleClass="import-button" stylesheets="@dashboardDesign.css" text="Import" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                                        </children>
                                     </AnchorPane>
                                     <Button fx:id="addEmployeeUpdateButton" layoutX="640.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" styleClass="update-button" stylesheets="@dashboardDesign.css" text="Update" />
-                                    <Button fx:id="addEmployeeDeleteButton" layoutX="470.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" styleClass="clear-button" stylesheets="@dashboardDesign.css" text="Clear" />
+                                    <Button fx:id="addEmployeeDeleteButton" layoutX="470.0" layoutY="625.0" mnemonicParsing="false" onAction="#addEmployeeReset" prefHeight="40.0" prefWidth="125.0" styleClass="clear-button" stylesheets="@dashboardDesign.css" text="Clear" />
                                     <Button fx:id="addEmployeeClearButton" layoutX="320.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" styleClass="delete-button" stylesheets="@dashboardDesign.css" text="Delete">
                                        <font>
                                           <Font name="Arial" size="14.0" />

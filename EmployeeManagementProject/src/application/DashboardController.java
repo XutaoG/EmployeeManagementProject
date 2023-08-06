@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -7,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -27,10 +30,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -137,7 +143,7 @@ public class DashboardController implements Initializable
     private ComboBox<?> addEmployeeGender;
 
     @FXML
-    private ComboBox<?> addEmployeeGennder;
+    private ComboBox<?> addEmployeePosition;
 
     @FXML
     private TextField addEmployeeLastName;
@@ -147,6 +153,9 @@ public class DashboardController implements Initializable
 
     @FXML
     private TextField addEmployeeSearch;
+    
+    @FXML
+    private ImageView addEmployeeImageView;
 
     // Salary form
     // ==================
@@ -203,62 +212,20 @@ public class DashboardController implements Initializable
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     
+    private String[] positionList = {"Cashier", "Food Preparation Worker", "Bagger", 
+    		"Floral Assistant", "Stock Clerk", "Pharmacist", "Butcher", 
+    		"Bakery Associate", "Customer Service Representative", "Store Manager"};
+    
+    private String[] genderList = {"Male", "Female", "Other"};
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
 		addEmployeeShowListData();
+		addEmployeePositionList();
+		addEmployeeGenderList();
 	}
 	
-	public ObservableList<EmployeeData> addEmployeeGetListData()
-	{
-		ObservableList<EmployeeData> observableList = FXCollections.observableArrayList();
-		
-		connection = DatabaseUtility.connectToDatabase();
-		
-		try
-		{
-			preparedStatement = connection.prepareStatement("SELECT * FROM employees");
-			resultSet = preparedStatement.executeQuery();
-			EmployeeData employeeData;
-			
-			while (resultSet.next())
-			{
-				employeeData = new EmployeeData(resultSet.getInt("employeeId"),
-						resultSet.getString("firstName"),
-						resultSet.getString("lastName"),
-						resultSet.getString("gender"),
-						resultSet.getString("phoneNumber"),
-						resultSet.getString("position"),
-						resultSet.getString("image"),
-						resultSet.getDate("date"));
-				
-				observableList.add(employeeData);
-			}
-		}
-		catch (SQLException sqle)
-		{
-			System.out.println("Connection error in " + this.getClass().getName());
-			sqle.printStackTrace();
-		}
-		
-		return observableList;
-	}
-	
-	public void addEmployeeShowListData()
-	{
-		addEmployeeDataList = addEmployeeGetListData();
-		
-		addEmployeeColumnEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
-		addEmployeeColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-		addEmployeeColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		addEmployeeColumnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-		addEmployeeColumnPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
-		addEmployeeColumnPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-		addEmployeeColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-		
-		addEmployeeTableView.setItems(addEmployeeDataList);
-		
-	}
 	
 	public void switchForm(ActionEvent event)
 	{
@@ -279,6 +246,9 @@ public class DashboardController implements Initializable
 		{
 			addEmployeeForm.setVisible(true);
 			addEmployeeButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #083fb5, #f124f8)");
+			
+			addEmployeePositionList();
+			addEmployeeGenderList();
 		}
 		else if (event.getSource() == salaryButton) 
 		{
@@ -366,20 +336,211 @@ public class DashboardController implements Initializable
     	
     	displayUsername();
     }
+
+
+	public ObservableList<EmployeeData> addEmployeeGetListData()
+	{
+		ObservableList<EmployeeData> observableList = FXCollections.observableArrayList();
+		
+		connection = DatabaseUtility.connectToDatabase();
+		
+		try
+		{
+			preparedStatement = connection.prepareStatement("SELECT * FROM employees");
+			resultSet = preparedStatement.executeQuery();
+			EmployeeData employeeData;
+			
+			while (resultSet.next())
+			{
+				employeeData = new EmployeeData(resultSet.getInt("employeeId"),
+						resultSet.getString("firstName"),
+						resultSet.getString("lastName"),
+						resultSet.getString("gender"),
+						resultSet.getString("phoneNumber"),
+						resultSet.getString("position"),
+						resultSet.getString("image"),
+						resultSet.getDate("date"));
+				
+				observableList.add(employeeData);
+			}
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+		
+		return observableList;
+	}
+	
+	public void addEmployeeShowListData()
+	{
+		addEmployeeDataList = addEmployeeGetListData();
+		
+		addEmployeeColumnEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+		addEmployeeColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		addEmployeeColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		addEmployeeColumnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+		addEmployeeColumnPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+		addEmployeeColumnPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+		addEmployeeColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+		
+		addEmployeeTableView.setItems(addEmployeeDataList);
+		
+	}
+	
+	public void addEmployeeSelect()
+	{
+		EmployeeData employeeData = addEmployeeTableView.getSelectionModel().getSelectedItem();
+		
+		int index = addEmployeeTableView.getSelectionModel().getSelectedIndex();
+		
+		if (index < 0)
+		{
+			return;
+		}
+		
+		addEmployeeEmployeeID.setText(String.valueOf(employeeData.getEmployeeId()));
+		addEmployeeFirstName.setText(employeeData.getFirstName());
+		addEmployeeLastName.setText(employeeData.getLastName());
+		addEmployeePhoneNumber.setText(employeeData.getPhoneNumber());
+		
+		String uri = "file:" + employeeData.getImage();
+		Image employeeImage = new Image(uri, addEmployeeImageView.getFitWidth(), addEmployeeImageView.getFitHeight(), false, true);
+		
+		addEmployeeImageView.setImage(employeeImage);
+	}
+	
+	public void addEmployeeInsertImage()
+	{
+		FileChooser open = new FileChooser();
+		File file = open.showOpenDialog(mainForm.getScene().getWindow());
+		
+		if (file != null)
+		{
+			UserData.path = file.getAbsolutePath();
+			
+			Image image = new Image(file.toURI().toString(), addEmployeeImageView.getFitWidth(), addEmployeeImageView.getFitHeight(), false, true);
+			addEmployeeImageView.setImage(image);
+		}
+	}
+	
+	public void addEmployeeAdd()
+	{
+		System.out.println("ADD");
+		
+		connection = DatabaseUtility.connectToDatabase();
+		
+		Date date = new Date();
+		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		
+		try
+		{
+			Alert alert;
+			
+			if (addEmployeeEmployeeID.getText().isEmpty() ||
+					addEmployeeFirstName.getText().isEmpty() ||
+					addEmployeeLastName.getText().isEmpty() ||
+					addEmployeeGender.getSelectionModel().getSelectedItem() == null ||
+					addEmployeePhoneNumber.getText().isEmpty() ||
+					addEmployeePosition.getSelectionModel().getSelectedItem() == null ||
+					UserData.path == null || UserData.path.isEmpty())
+			{
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Invalid textfield(s)");
+				alert.setContentText("Please fill in all blank fields");
+				alert.showAndWait();
+				return;
+			}
+			
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery("SELECT employeeId from employees WHERE employeeId = '" + addEmployeeEmployeeID.getText() + "'");
+			
+			if (resultSet.next())
+			{
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText(null);
+				alert.setContentText("Employee ID: " + addEmployeeEmployeeID.getText() + " already exist.");
+				alert.showAndWait();
+				return;
+			}
+			
+			preparedStatement = connection.prepareStatement("INSERT INTO employees " + 
+					"(employeeId, firstName, lastName, gender, phoneNumber, position, image, date) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			
+			preparedStatement.setString(1, addEmployeeEmployeeID.getText());
+			preparedStatement.setString(2, addEmployeeFirstName.getText());
+			preparedStatement.setString(3, addEmployeeLastName.getText());
+			preparedStatement.setString(4, (String) addEmployeeGender.getSelectionModel().getSelectedItem());
+			preparedStatement.setString(5, addEmployeePhoneNumber.getText());
+			preparedStatement.setString(6, (String) addEmployeePosition.getSelectionModel().getSelectedItem());
+			
+			String uri = UserData.path.replace("\\", "\\\\");
+			
+			preparedStatement.setString(7, uri);
+			preparedStatement.setDate(8, sqlDate);
+			
+			preparedStatement.executeUpdate();
+			
+			alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Information");
+			alert.setHeaderText("Employee Added");
+			alert.setContentText("Employee successfully added");
+			alert.showAndWait();
+			
+			addEmployeeReset();
+			addEmployeeShowListData();
+			
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+	}
+	
+	public void addEmployeeReset()
+	{
+		addEmployeeEmployeeID.setText("");
+		addEmployeeFirstName.setText("");
+		addEmployeeLastName.setText("");
+		addEmployeeGender.getSelectionModel().clearSelection();
+		addEmployeePhoneNumber.setText("");
+		addEmployeePosition.getSelectionModel().clearSelection();
+		addEmployeeImageView.setImage(null);
+		
+		UserData.path = null;
+	}
+	
+	public void addEmployeePositionList()
+	{
+		ArrayList<String> positionArrayList = new ArrayList<>();
+		
+		for (int i = 0; i < positionList.length; i++)
+		{
+			positionArrayList.add(positionList[i]);
+		}
+		
+		ObservableList positionObservableList = FXCollections.observableArrayList(positionArrayList);
+		addEmployeePosition.setItems(positionObservableList);
+	}
+	
+	public void addEmployeeGenderList()
+	{
+		ArrayList<String> genderArrayList = new ArrayList<>();
+		
+		for (int i = 0; i < genderList.length; i++)
+		{
+			genderArrayList.add(genderList[i]);
+		}
+		
+		ObservableList genderObservableList = FXCollections.observableArrayList(genderArrayList);
+		addEmployeeGender.setItems(genderObservableList);
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
