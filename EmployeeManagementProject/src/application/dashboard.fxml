@@ -307,9 +307,9 @@
                                           <Button fx:id="addEmployeeImportButton" layoutX="58.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#addEmployeeInsertImage" prefHeight="40.0" prefWidth="116.0" styleClass="import-button" stylesheets="@dashboardDesign.css" text="Import" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="addEmployeeUpdateButton" layoutX="640.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" styleClass="update-button" stylesheets="@dashboardDesign.css" text="Update" />
+                                    <Button fx:id="addEmployeeUpdateButton" layoutX="640.0" layoutY="625.0" mnemonicParsing="false" onAction="#addEmployeeUpdate" prefHeight="40.0" prefWidth="125.0" styleClass="update-button" stylesheets="@dashboardDesign.css" text="Update" />
                                     <Button fx:id="addEmployeeDeleteButton" layoutX="470.0" layoutY="625.0" mnemonicParsing="false" onAction="#addEmployeeReset" prefHeight="40.0" prefWidth="125.0" styleClass="clear-button" stylesheets="@dashboardDesign.css" text="Clear" />
-                                    <Button fx:id="addEmployeeClearButton" layoutX="320.0" layoutY="625.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" styleClass="delete-button" stylesheets="@dashboardDesign.css" text="Delete">
+                                    <Button fx:id="addEmployeeClearButton" layoutX="320.0" layoutY="625.0" mnemonicParsing="false" onAction="#addEmployeeDelete" prefHeight="40.0" prefWidth="125.0" styleClass="delete-button" stylesheets="@dashboardDesign.css" text="Delete">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font></Button>

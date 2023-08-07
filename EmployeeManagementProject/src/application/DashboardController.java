@@ -405,6 +405,8 @@ public class DashboardController implements Initializable
 		addEmployeeLastName.setText(employeeData.getLastName());
 		addEmployeePhoneNumber.setText(employeeData.getPhoneNumber());
 		
+		UserData.path = employeeData.getImage();
+		
 		String uri = "file:" + employeeData.getImage();
 		Image employeeImage = new Image(uri, addEmployeeImageView.getFitWidth(), addEmployeeImageView.getFitHeight(), false, true);
 		
@@ -539,6 +541,112 @@ public class DashboardController implements Initializable
 		
 		ObservableList genderObservableList = FXCollections.observableArrayList(genderArrayList);
 		addEmployeeGender.setItems(genderObservableList);
+	}
+	
+	public void addEmployeeUpdate()
+	{
+		try
+		{
+			Alert alert;
+			
+			if (addEmployeeEmployeeID.getText().isEmpty() ||
+					addEmployeeFirstName.getText().isEmpty() ||
+					addEmployeeLastName.getText().isEmpty() ||
+					addEmployeeGender.getSelectionModel().getSelectedItem() == null ||
+					addEmployeePhoneNumber.getText().isEmpty() ||
+					addEmployeePosition.getSelectionModel().getSelectedItem() == null ||
+					UserData.path == null || UserData.path.isEmpty())
+			{
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Invalid textfield(s)");
+				alert.setContentText("Please fill in all blank fields");
+				alert.showAndWait();
+				return;
+			}
+			
+			alert = new Alert(AlertType.CONFIRMATION);
+			
+			alert.setTitle("Confirm Action");
+			alert.setHeaderText(null);
+			alert.setContentText("Are you sure you want to update employee ID: " + addEmployeeEmployeeID.getText() + "?");
+			Optional<ButtonType> option = alert.showAndWait();
+			
+			if (option.get().equals(ButtonType.OK))
+			{
+				connection = DatabaseUtility.connectToDatabase();
+				statement = connection.createStatement();
+				statement.execute(String.format("UPDATE employees SET firstName = '%s', lastName = '%s', gender = '%s', position = '%s', phoneNumber = '%s', image = '%s', date = '%s' WHERE employeeId = '%s'",
+						addEmployeeFirstName.getText(), addEmployeeLastName.getText(), addEmployeeGender.getSelectionModel().getSelectedItem(), addEmployeePosition.getSelectionModel().getSelectedItem(),
+						addEmployeePhoneNumber.getText(), UserData.path.replace("\\","\\\\"), new java.sql.Date(new Date().getTime()), addEmployeeEmployeeID.getText()));
+				
+				alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information");
+				alert.setHeaderText(null);
+				alert.setContentText("Employee ID: " + addEmployeeEmployeeID.getText() + " is updated.");
+				alert.showAndWait();
+				
+				addEmployeeShowListData();
+				addEmployeeReset();
+			}
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+	}
+	
+	public void addEmployeeDelete()
+	{
+		try
+		{
+			Alert alert;
+			
+			if (addEmployeeEmployeeID.getText().isEmpty() ||
+					addEmployeeFirstName.getText().isEmpty() ||
+					addEmployeeLastName.getText().isEmpty() ||
+					addEmployeeGender.getSelectionModel().getSelectedItem() == null ||
+					addEmployeePhoneNumber.getText().isEmpty() ||
+					addEmployeePosition.getSelectionModel().getSelectedItem() == null ||
+					UserData.path == null || UserData.path.isEmpty())
+			{
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Invalid textfield(s)");
+				alert.setContentText("Please fill in all blank fields");
+				alert.showAndWait();
+				return;
+			}
+			
+			alert = new Alert(AlertType.CONFIRMATION);
+			
+			alert.setTitle("Confirm Action");
+			alert.setHeaderText(null);
+			alert.setContentText("Are you sure you want to delete employee ID: " + addEmployeeEmployeeID.getText() + "?");
+			Optional<ButtonType> option = alert.showAndWait();
+			
+			if (option.get().equals(ButtonType.OK))
+			{
+				connection = DatabaseUtility.connectToDatabase();
+				statement = connection.createStatement();
+				statement.execute("DELETE FROM employees WHERE employeeId = '" + addEmployeeEmployeeID.getText() + "'");
+				
+				alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Information");
+				alert.setHeaderText(null);
+				alert.setContentText("Employee ID: " + addEmployeeEmployeeID.getText() + " is deleted.");
+				alert.showAndWait();
+				
+				addEmployeeShowListData();
+				addEmployeeReset();
+			}
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
 	}
 }
 
