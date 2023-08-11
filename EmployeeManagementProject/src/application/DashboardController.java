@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -249,6 +251,7 @@ public class DashboardController implements Initializable
 			
 			addEmployeePositionList();
 			addEmployeeGenderList();
+			addEmployeeSearch();
 		}
 		else if (event.getSource() == salaryButton) 
 		{
@@ -647,6 +650,61 @@ public class DashboardController implements Initializable
 			System.out.println("Connection error in " + this.getClass().getName());
 			sqle.printStackTrace();
 		}
+	}
+	
+	public void addEmployeeSearch()
+	{
+		FilteredList<EmployeeData> filteredList = new FilteredList<>(addEmployeeDataList, e -> true);
+		
+		String newValue = addEmployeeSearch.getText();
+
+		filteredList.setPredicate(predicateEmployeeData -> 
+		{
+			if (newValue == null || newValue.isEmpty()) 
+			{
+				return true;
+			}
+
+	        String searchKey = newValue.toLowerCase();
+	
+	        if (String.valueOf(predicateEmployeeData.getEmployeeId()).contains(searchKey)) 
+	        {
+	            return true;
+	        } 
+	        else if (predicateEmployeeData.getFirstName().toLowerCase().contains(searchKey)) 
+	        {
+	            return true;
+	        } 
+	        else if (predicateEmployeeData.getLastName().toLowerCase().contains(searchKey)) 
+	        {
+	            return true;
+	        } 
+	        else if (predicateEmployeeData.getGender().toLowerCase().contains(searchKey)) 
+	        {
+	            return true;
+	        } 
+	        else if (predicateEmployeeData.getPhoneNumber().toLowerCase().contains(searchKey)) 
+	        {
+	            return true;
+	        } 
+	        else if (predicateEmployeeData.getPosition().toLowerCase().contains(searchKey)) 
+	        {
+	            return true;
+	        } 
+	        else if (predicateEmployeeData.getDate().toString().contains(searchKey)) 
+	        {
+	            return true;
+	        } 
+	        else 
+	        {
+	            return false;
+	        }
+	    });
+	
+		SortedList<EmployeeData> sortedList = new SortedList<>(filteredList);
+		
+        sortedList.comparatorProperty().bind(addEmployeeTableView.comparatorProperty());
+        addEmployeeTableView.setItems(sortedList);
 	}
 }
 
