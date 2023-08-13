@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -25,6 +24,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -80,13 +81,13 @@ public class DashboardController implements Initializable
 	private AnchorPane homeForm;
 	
     @FXML
-    private BarChart<?, ?> homeEmployeesDataChart;
+    private BarChart<String, Integer> homeEmployeesDataChart;
 
     @FXML
     private Label homeTotalEmployees;
 
     @FXML
-    private Label homeTotalInactiveEmployees;
+    private Label homeTotalInactive;
 
     @FXML
     private Label homeTotalPresent;
@@ -143,10 +144,10 @@ public class DashboardController implements Initializable
     private TextField addEmployeeFirstName;
 
     @FXML
-    private ComboBox<?> addEmployeeGender;
+    private ComboBox<String> addEmployeeGender;
 
     @FXML
-    private ComboBox<?> addEmployeePosition;
+    private ComboBox<String> addEmployeePosition;
 
     @FXML
     private TextField addEmployeeLastName;
@@ -191,7 +192,7 @@ public class DashboardController implements Initializable
     private TableColumn<EmployeeData, String> salaryColumnSalary;
 
     @FXML
-    private TextField salaryEmployeeId;
+    private Label salaryEmployeeId;
 
     @FXML
     private Label salaryFirstName;
@@ -227,11 +228,31 @@ public class DashboardController implements Initializable
 	{
 		displayUsername();
 		
-		addEmployeeShowListData();
+		openDefaultForm();
+		
+		homeSetTotalEmployees();
+		homeSetTotalPresent();
+		homeSetTotalInactive();
+		homeSetChart();
+		
 		addEmployeePositionList();
 		addEmployeeGenderList();
+		addEmployeeShowListData();
 		
 		salaryShowListData();
+	}
+	
+	public void openDefaultForm()
+	{
+		homeButton.setStyle("-fx-background-color: transparent");
+		addEmployeeButton.setStyle("-fx-background-color: transparent");
+		salaryButton.setStyle("-fx-background-color: transparent");
+		
+		addEmployeeForm.setVisible(false);
+		salaryForm.setVisible(false);
+		
+		homeForm.setVisible(true);
+		homeButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #083fb5, #f124f8)");
 	}
 	
 	
@@ -249,6 +270,11 @@ public class DashboardController implements Initializable
 		{
 			homeForm.setVisible(true);
 			homeButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #083fb5, #f124f8)");
+			
+			homeSetTotalEmployees();
+			homeSetTotalPresent();
+			homeSetTotalInactive();
+			homeSetChart();
 		}
 		else if (event.getSource() == addEmployeeButton) 
 		{
@@ -439,9 +465,7 @@ public class DashboardController implements Initializable
 	}
 	
 	public void addEmployeeAdd()
-	{
-		System.out.println("ADD");
-		
+	{	
 		connection = DatabaseUtility.connectToDatabase();
 		
 		Date date = new Date();
@@ -529,37 +553,37 @@ public class DashboardController implements Initializable
 		addEmployeeEmployeeID.setText("");
 		addEmployeeFirstName.setText("");
 		addEmployeeLastName.setText("");
-		addEmployeeGender.getSelectionModel().clearSelection();
+//		addEmployeeGender.getSelectionModel().clearSelection();
+		addEmployeeGender.setValue("");
 		addEmployeePhoneNumber.setText("");
 		addEmployeePosition.getSelectionModel().clearSelection();
+		addEmployeePosition.setValue("");
 		addEmployeeImageView.setImage(null);
 		
 		UserData.path = null;
 	}
 	
 	public void addEmployeePositionList()
-	{
-		ArrayList<String> positionArrayList = new ArrayList<>();
+	{	
+		ObservableList<String> positionObservableList = FXCollections.observableArrayList();
 		
 		for (int i = 0; i < positionList.length; i++)
 		{
-			positionArrayList.add(positionList[i]);
-		}
+			positionObservableList.add(positionList[i]);
+		} 
 		
-		ObservableList positionObservableList = FXCollections.observableArrayList(positionArrayList);
 		addEmployeePosition.setItems(positionObservableList);
 	}
 	
 	public void addEmployeeGenderList()
 	{
-		ArrayList<String> genderArrayList = new ArrayList<>();
+		ObservableList<String> genderObservableList = FXCollections.observableArrayList();
 		
 		for (int i = 0; i < genderList.length; i++)
 		{
-			genderArrayList.add(genderList[i]);
-		}
+			genderObservableList.add(genderList[i]);
+		} 
 		
-		ObservableList genderObservableList = FXCollections.observableArrayList(genderArrayList);
 		addEmployeeGender.setItems(genderObservableList);
 	}
 	
@@ -776,6 +800,177 @@ public class DashboardController implements Initializable
 		salaryColumnSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
 		
 		salaryTableView.setItems(salaryDataList);
+	}
+	
+	public void salaryUpdate()
+	{
+		try
+		{
+			Alert alert;
+			
+			if (salaryEmployeeId.getText().isEmpty() ||
+					salaryFirstName.getText().isEmpty() ||
+					salaryLastName.getText().isEmpty() ||
+					salaryPosition.getText().isEmpty())
+			{
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Employee not selected");
+				alert.setHeaderText(null);
+				alert.setContentText("Please select an employee");
+				alert.showAndWait();
+				return;
+			}
+			
+			connection = DatabaseUtility.connectToDatabase();
+			statement = connection.createStatement();
+			statement.executeUpdate(String.format("UPDATE employee_salary SET salary = '%s' WHERE employeeId = '%s'", salarySalary.getText(), salaryEmployeeId.getText()));
+			
+			alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Salary updated");
+			alert.setHeaderText(null);
+			alert.setContentText("Successfully updated!");
+			alert.showAndWait();
+			
+			salaryShowListData();
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+	}
+	
+	public void salaryReset()
+	{
+		salaryEmployeeId.setText("");
+		salaryFirstName.setText("");
+		salaryLastName.setText("");
+		salaryPosition.setText("");
+		salarySalary.setText("");
+	}
+	
+	public void salarySelect()
+	{
+		EmployeeData employeeData = salaryTableView.getSelectionModel().getSelectedItem();
+		int index = salaryTableView.getSelectionModel().getSelectedIndex();
+		
+		if (index < 0)
+		{
+			return;
+		}
+		
+		salaryEmployeeId.setText(employeeData.getEmployeeId());
+		salaryFirstName.setText(employeeData.getFirstName());
+		salaryLastName.setText(employeeData.getLastName());
+		salaryPosition.setText(employeeData.getPosition());
+		salarySalary.setText(String.valueOf(employeeData.getSalary()));
+	}
+	
+	public void homeSetTotalEmployees()
+	{
+		int employeeCount = 0;
+		
+		try
+		{
+			connection = DatabaseUtility.connectToDatabase();
+			statement = connection.createStatement();
+			
+			resultSet = statement.executeQuery("SELECT COUNT(id) FROM employees");
+			
+			while (resultSet.next())
+			{
+				employeeCount = resultSet.getInt("COUNT(id)");
+			}
+			
+			homeTotalEmployees.setText(String.valueOf(employeeCount));
+			
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+	}
+	
+	public void homeSetTotalPresent()
+	{
+		int totalPresent = 0;
+		
+		try
+		{
+			connection = DatabaseUtility.connectToDatabase();
+			statement = connection.createStatement();
+			
+			resultSet = statement.executeQuery("SELECT COUNT(id) FROM employee_salary WHERE salary != '0.0'");
+			
+			while (resultSet.next())
+			{
+				totalPresent = resultSet.getInt("COUNT(id)");
+			}
+			
+			homeTotalPresent.setText(String.valueOf(totalPresent));
+			
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+	}
+	
+	public void homeSetTotalInactive()
+	{
+		int totalInactive = 0;
+		
+		try
+		{
+			connection = DatabaseUtility.connectToDatabase();
+			statement = connection.createStatement();
+			
+			resultSet = statement.executeQuery("SELECT COUNT(id) FROM employee_salary WHERE salary = '0.0'");
+			
+			while (resultSet.next())
+			{
+				totalInactive = resultSet.getInt("COUNT(id)");
+			}
+			
+			homeTotalInactive.setText(String.valueOf(totalInactive));
+			
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+	}
+	
+	public void homeSetChart()
+	{
+		homeEmployeesDataChart.getData().clear();
+			
+		try
+		{
+			Series<String, Integer> chart = new Series<>();
+			
+			connection = DatabaseUtility.connectToDatabase();
+			statement = connection.createStatement();
+			
+			resultSet = statement.executeQuery("SELECT date, COUNT(id) FROM employees GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 7");
+			
+			while (resultSet.next())
+			{
+				chart.getData().add(new Data<String, Integer>(resultSet.getString(1), resultSet.getInt(2)));
+			}
+			
+			homeEmployeesDataChart.getData().add(chart);
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+		
+		
 	}
 }
 
