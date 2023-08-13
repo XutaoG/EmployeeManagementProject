@@ -24,7 +24,7 @@
                         <Font name="Consolas" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="employeeImageView" fitHeight="194.0" fitWidth="232.0" layoutX="54.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="194.0" fitWidth="232.0" layoutX="54.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/manager.png" />
                      </image>
@@ -32,7 +32,12 @@
                         <ColorAdjust brightness="1.0" />
                      </effect>
                   </ImageView>
-                  <Label layoutX="9.0" layoutY="573.0" text="Made by Xutao Gao" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                  <Label layoutX="9.0" layoutY="573.0" text="Made by Xutao Gao" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0">
+                     <font>
+                        <Font name="Consolas" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="19.0" layoutY="583.0" text="xu611268@ucf.edu" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
                      <font>
                         <Font name="Consolas" size="13.0" />
                      </font>
@@ -45,7 +50,7 @@
                </styleClass></AnchorPane>
             <AnchorPane layoutX="300.0" prefHeight="600.0" prefWidth="500.0" styleClass="right-form" stylesheets="@loginDesign.css">
                <children>
-                  <Label layoutX="80.0" layoutY="150.0" styleClass="welcome-text" stylesheets="@loginDesign.css" text="Welcome Back!" textFill="#0941b2">
+                  <Label alignment="CENTER" layoutX="80.0" layoutY="150.0" prefHeight="57.0" prefWidth="390.0" styleClass="welcome-text" stylesheets="@loginDesign.css" text="Welcome!" textFill="#0941b2" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                      <font>
                         <Font name="Consolas Bold" size="48.0" />
                      </font>
@@ -54,7 +59,7 @@
                   <PasswordField fx:id="passwordField" layoutX="100.0" layoutY="325.0" onKeyTyped="#onPasswordTyped" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
                   <TextField fx:id="passwordTextField" layoutX="100.0" layoutY="325.0" onKeyTyped="#onPasswordTyped" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" visible="false" />
                   <Button fx:id="loginButton" alignment="CENTER" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="300.0" styleClass="login-button" stylesheets="@loginDesign.css" text="Login" />
-                  <Button fx:id="closeButton" layoutX="445.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="53.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.topAnchor="1.0">
+                  <Button layoutX="445.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="53.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.topAnchor="1.0">
                      <graphic>
                      </graphic>
                      <graphic>
@@ -70,7 +75,7 @@
                         <Font name="Consolas" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="closeButton1" layoutX="394.0" layoutY="11.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="53.0" styleClass="minimize" stylesheets="@loginDesign.css" AnchorPane.topAnchor="1.0">
+                  <Button layoutX="394.0" layoutY="11.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="53.0" styleClass="minimize" stylesheets="@loginDesign.css" AnchorPane.topAnchor="1.0">
                      <graphic>
                         <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>

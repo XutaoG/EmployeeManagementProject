@@ -9,11 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 
 public class Main extends Application
-{
-	
-	private double x;
-	private double y;
-	
+{	
 	@Override
 	public void start(Stage primaryStage)
 	{

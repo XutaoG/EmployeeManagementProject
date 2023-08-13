@@ -29,9 +29,6 @@ public class LoginPageController implements Initializable
 {
 	@FXML
 	private AnchorPane mainForm;
-	
-    @FXML
-    private Button closeButton;
 
     @FXML
     private Button loginButton;
@@ -44,9 +41,6 @@ public class LoginPageController implements Initializable
     
     @FXML
     private TextField passwordTextField;
-    
-    @FXML
-    private ImageView employeeImageView;
     
     @FXML
     private CheckBox showPasswordCheckBox;
