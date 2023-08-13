@@ -23,6 +23,17 @@
 	-fx-background-color: #b53535;
 }
 
+.minimize
+{
+	-fx-background-color: transparent;
+	-fx-cursor: hand;
+}
+
+.minimize:hover
+{
+	-fx-background-color: #c9c9c9;
+}
+
 .welcome-text
 {
 	-fx-text-fill: linear-gradient(to right, #083fb5, #f124f8);
@@ -34,7 +45,7 @@
 	-fx-background-radius: 5px;
 	-fx-text-fill: white;
 	-fx-font-size: 14px;
-	-fx-font-family: Arial;
+	-fx-font-family: Consolas;
 	-fx-cursor: hand;
 }
 
@@ -60,6 +71,59 @@
 	-fx-border-color: black;
 	-fx-border-width: 1px;
 }
+
+.show-password-checkbox
+{
+	-fx-font-size: 11px;
+	-fx-font-family: "Arial";
+}
+
+.show-password-checkbox .box
+{
+	-fx-background-color: linear-gradient(to bottom, #efefef, #eee);
+	-fx-background-radius: 5px;
+	-fx-border-color: gray;
+	-fx-border-radius: 5px;
+	-fx-border-width: .4px; 
+}
+
+.show-password-checkbox .box:hover
+{
+	-fx-border-color: black;
+}
+
+.show-password-checkbox:selected .box
+{
+	-fx-background-color: blue;
+}
+
+.show-password-checkbox:selected .mark
+{
+	-fx-background-color: white;
+}
+
+.shape1
+{
+	-fx-fill: linear-gradient(to bottom, #b6d0fc, white);
+	-fx-stroke-width: 0;
+	-fx-opacity: 0.7;
+}
+
+.shape2
+{
+	-fx-fill: linear-gradient(to bottom, #fff29e, white);
+	-fx-stroke-width: 0;
+	-fx-opacity: 0.7;
+}
+
+
+.shape3
+{
+	-fx-fill: linear-gradient(to bottom, #ffbab3, white);
+	-fx-stroke-width: 0;
+	-fx-opacity: 0.7;
+}
+
 
 
 

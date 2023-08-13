@@ -969,8 +969,6 @@ public class DashboardController implements Initializable
 			System.out.println("Connection error in " + this.getClass().getName());
 			sqle.printStackTrace();
 		}
-		
-		
 	}
 }
 
