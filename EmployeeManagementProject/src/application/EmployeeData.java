@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class EmployeeData
 {
-	private int employeeId;
+	private String employeeId;
 	private String firstName;
 	private String lastName;
 	private String gender;
@@ -12,8 +12,9 @@ public class EmployeeData
 	private String position;
 	private String image;
 	private Date date;
+	private double salary;
 	
-	public EmployeeData(int employeeId, String firstName, String lastName, String gender, String phoneNumber, String position, String image, Date date)
+	public EmployeeData(String employeeId, String firstName, String lastName, String gender, String phoneNumber, String position, String image, Date date)
 	{
 		this.setEmployeeId(employeeId);
 		this.setFirstName(firstName);
@@ -24,13 +25,22 @@ public class EmployeeData
 		this.setImage(image);
 		this.setDate(date);
 	}
+	
+	public EmployeeData(String employeeId, String firstName, String lastName, String position, double salary)
+	{
+		this.setEmployeeId(employeeId);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setPosition(position);
+		this.setSalary(salary);
+	}
 
-	public int getEmployeeId()
+	public String getEmployeeId()
 	{
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId)
+	public void setEmployeeId(String employeeId)
 	{
 		this.employeeId = employeeId;
 	}
@@ -103,5 +113,15 @@ public class EmployeeData
 	public void setDate(Date date)
 	{
 		this.date = date;
+	}
+	
+	public double getSalary()
+	{
+		return salary;
+	}
+	
+	public void setSalary(double salary)
+	{
+		this.salary = salary;
 	}
 }

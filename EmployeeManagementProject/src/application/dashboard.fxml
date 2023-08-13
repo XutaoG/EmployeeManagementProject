@@ -235,7 +235,7 @@
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
-                        <AnchorPane fx:id="addEmployeeForm" prefHeight="750.0" prefWidth="950.0" styleClass="primary-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="addEmployeeForm" prefHeight="750.0" prefWidth="950.0" styleClass="primary-form" stylesheets="@dashboardDesign.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane prefHeight="750.0" prefWidth="950.0" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                                  <styleClass>
@@ -251,7 +251,7 @@
                                     </ImageView>
                                     <TableView fx:id="addEmployeeTableView" layoutX="9.0" layoutY="60.0" onMouseClicked="#addEmployeeSelect" prefHeight="325.0" prefWidth="890.0" stylesheets="@dashboardDesign.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                                       <columns>
-                                        <TableColumn fx:id="addEmployeeColumnEmployeeID" prefWidth="93.0" text="Employee ID" />
+                                        <TableColumn fx:id="addEmployeeColumnEmployeeId" prefWidth="93.0" text="Employee ID" />
                                         <TableColumn fx:id="addEmployeeColumnFirstName" prefWidth="129.0" text="First Name" />
                                           <TableColumn fx:id="addEmployeeColumnLastName" prefWidth="131.0" text="Last Name" />
                                           <TableColumn fx:id="addEmployeeColumnGender" prefWidth="116.33331298828125" text="Gender" />
@@ -317,7 +317,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="salaryForm" prefHeight="750.0" prefWidth="950.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="salaryForm" prefHeight="750.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="233.0" layoutY="132.0" prefHeight="720.0" prefWidth="353.0" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                                  <styleClass>
@@ -330,7 +330,7 @@
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="salaryEmployeeID" layoutX="135.0" layoutY="85.0" prefHeight="30.0" prefWidth="175.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="salaryEmployeeId" layoutX="135.0" layoutY="85.0" prefHeight="30.0" prefWidth="175.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="45.0" layoutY="143.0" text="First Name:">
                                        <font>
                                           <Font name="Arial" size="14.0" />
@@ -351,7 +351,7 @@
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="salarySalary" layoutX="135.0" layoutY="285.0" prefHeight="30.0" prefWidth="175.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="salarySalary" layoutX="137.0" layoutY="281.0" prefHeight="30.0" prefWidth="175.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label fx:id="salaryFirstName" layoutX="135.0" layoutY="135.0" prefHeight="30.0" prefWidth="175.0" styleClass="label-info" stylesheets="@dashboardDesign.css" text="First Name">
                                        <font>
                                           <Font name="Arial" size="14.0" />

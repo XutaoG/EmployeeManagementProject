@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -118,7 +119,7 @@ public class DashboardController implements Initializable
     private TableColumn<EmployeeData, String> addEmployeeColumnDate;
 
     @FXML
-    private TableColumn<EmployeeData, String> addEmployeeColumnEmployeeID;
+    private TableColumn<EmployeeData, String> addEmployeeColumnEmployeeId;
 
     @FXML
     private TableColumn<EmployeeData, String> addEmployeeColumnFirstName;
@@ -172,25 +173,25 @@ public class DashboardController implements Initializable
     private Button salaryUpdateButton;
 
     @FXML
-    private TableView<?> salaryTableView;
+    private TableView<EmployeeData> salaryTableView;
     
     @FXML
-    private TableColumn<?, ?> salaryColumnEmployeeID;
+    private TableColumn<EmployeeData, String> salaryColumnEmployeeID;
 
     @FXML
-    private TableColumn<?, ?> salaryColumnFirstName;
+    private TableColumn<EmployeeData, String> salaryColumnFirstName;
 
     @FXML
-    private TableColumn<?, ?> salaryColumnLastName;
+    private TableColumn<EmployeeData, String> salaryColumnLastName;
 
     @FXML
-    private TableColumn<?, ?> salaryColumnPosition;
+    private TableColumn<EmployeeData, String> salaryColumnPosition;
 
     @FXML
-    private TableColumn<?, ?> salaryColumnSalary;
+    private TableColumn<EmployeeData, String> salaryColumnSalary;
 
     @FXML
-    private TextField salaryEmployeeID;
+    private TextField salaryEmployeeId;
 
     @FXML
     private Label salaryFirstName;
@@ -208,6 +209,7 @@ public class DashboardController implements Initializable
     private double y;
     
     private ObservableList<EmployeeData> addEmployeeDataList = null;
+    private ObservableList<EmployeeData> salaryDataList = null;
     
     private Connection connection;
     private Statement statement;
@@ -223,9 +225,13 @@ public class DashboardController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
+		displayUsername();
+		
 		addEmployeeShowListData();
 		addEmployeePositionList();
 		addEmployeeGenderList();
+		
+		salaryShowListData();
 	}
 	
 	
@@ -257,6 +263,8 @@ public class DashboardController implements Initializable
 		{
 			salaryForm.setVisible(true);
 			salaryButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #083fb5, #f124f8)");
+			
+			salaryShowListData();
 		}
 	}
 	
@@ -355,7 +363,7 @@ public class DashboardController implements Initializable
 			
 			while (resultSet.next())
 			{
-				employeeData = new EmployeeData(resultSet.getInt("employeeId"),
+				employeeData = new EmployeeData(resultSet.getString("employeeId"),
 						resultSet.getString("firstName"),
 						resultSet.getString("lastName"),
 						resultSet.getString("gender"),
@@ -380,7 +388,7 @@ public class DashboardController implements Initializable
 	{
 		addEmployeeDataList = addEmployeeGetListData();
 		
-		addEmployeeColumnEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+		addEmployeeColumnEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
 		addEmployeeColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 		addEmployeeColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 		addEmployeeColumnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
@@ -472,9 +480,7 @@ public class DashboardController implements Initializable
 				return;
 			}
 			
-			preparedStatement = connection.prepareStatement("INSERT INTO employees " + 
-					"(employeeId, firstName, lastName, gender, phoneNumber, position, image, date) " +
-					"VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement = connection.prepareStatement("INSERT INTO employees (employeeId, firstName, lastName, gender, phoneNumber, position, image, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 			
 			preparedStatement.setString(1, addEmployeeEmployeeID.getText());
 			preparedStatement.setString(2, addEmployeeFirstName.getText());
@@ -489,6 +495,17 @@ public class DashboardController implements Initializable
 			preparedStatement.setDate(8, sqlDate);
 			
 			preparedStatement.executeUpdate();
+			
+			preparedStatement = connection.prepareStatement("INSERT INTO employee_salary (employeeId, firstName, lastName, position, salary) VALUES (?, ?, ?, ?, ?)");
+			
+			preparedStatement.setString(1, addEmployeeEmployeeID.getText());
+			preparedStatement.setString(2, addEmployeeFirstName.getText());
+			preparedStatement.setString(3, addEmployeeLastName.getText());
+			preparedStatement.setString(4, (String) addEmployeePosition.getSelectionModel().getSelectedItem());
+			preparedStatement.setDouble(5, 0.0);
+			
+			preparedStatement.executeUpdate();
+			
 			
 			alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Information");
@@ -583,6 +600,9 @@ public class DashboardController implements Initializable
 						addEmployeeFirstName.getText(), addEmployeeLastName.getText(), addEmployeeGender.getSelectionModel().getSelectedItem(), addEmployeePosition.getSelectionModel().getSelectedItem(),
 						addEmployeePhoneNumber.getText(), UserData.path.replace("\\","\\\\"), new java.sql.Date(new Date().getTime()), addEmployeeEmployeeID.getText()));
 				
+				statement.execute(String.format("UPDATE employee_salary SET firstName = '%s', lastName = '%s', position = '%s' WHERE employeeId = '%s'", 
+						addEmployeeFirstName.getText(), addEmployeeLastName.getText(), addEmployeePosition.getSelectionModel().getSelectedItem(), addEmployeeEmployeeID.getText()));
+				
 				alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information");
 				alert.setHeaderText(null);
@@ -635,6 +655,8 @@ public class DashboardController implements Initializable
 				statement = connection.createStatement();
 				statement.execute("DELETE FROM employees WHERE employeeId = '" + addEmployeeEmployeeID.getText() + "'");
 				
+				statement.execute("DELETE FROM employee_salary WHERE employeeId = '" +  addEmployeeEmployeeID.getText() + "'");
+				
 				alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Information");
 				alert.setHeaderText(null);
@@ -657,17 +679,17 @@ public class DashboardController implements Initializable
 		FilteredList<EmployeeData> filteredList = new FilteredList<>(addEmployeeDataList, e -> true);
 		
 		String newValue = addEmployeeSearch.getText();
-
-		filteredList.setPredicate(predicateEmployeeData -> 
+		
+		Predicate<EmployeeData> predicate = (predicateEmployeeData) -> 
 		{
 			if (newValue == null || newValue.isEmpty()) 
 			{
 				return true;
 			}
-
+	
 	        String searchKey = newValue.toLowerCase();
 	
-	        if (String.valueOf(predicateEmployeeData.getEmployeeId()).contains(searchKey)) 
+	        if (predicateEmployeeData.getEmployeeId().toLowerCase().contains(searchKey)) 
 	        {
 	            return true;
 	        } 
@@ -699,12 +721,61 @@ public class DashboardController implements Initializable
 	        {
 	            return false;
 	        }
-	    });
+		};
+
+		filteredList.setPredicate(predicate);
 	
 		SortedList<EmployeeData> sortedList = new SortedList<>(filteredList);
 		
         sortedList.comparatorProperty().bind(addEmployeeTableView.comparatorProperty());
         addEmployeeTableView.setItems(sortedList);
+	}
+
+	
+	public ObservableList<EmployeeData> salaryListData()
+	{
+		ObservableList<EmployeeData> listData = FXCollections.observableArrayList();
+		
+		connection = DatabaseUtility.connectToDatabase();
+		
+		try
+		{
+			preparedStatement = connection.prepareStatement("SELECT * from employee_salary");
+			resultSet = preparedStatement.executeQuery();
+			
+			EmployeeData employeeData;
+			
+			while (resultSet.next())
+			{
+				employeeData = new EmployeeData(resultSet.getString("employeeId"),
+						resultSet.getString("firstName"),
+						resultSet.getString("lastName"),
+						resultSet.getString("position"),
+						resultSet.getDouble("salary"));
+				
+				listData.add(employeeData);
+			}
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName());
+			sqle.printStackTrace();
+		}
+		
+		return listData;
+	}
+	
+	public void salaryShowListData()
+	{
+		salaryDataList = salaryListData();
+		
+		salaryColumnEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+		salaryColumnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		salaryColumnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		salaryColumnPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+		salaryColumnSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+		
+		salaryTableView.setItems(salaryDataList);
 	}
 }
 
