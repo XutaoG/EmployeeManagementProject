@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -10,83 +9,78 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginPageController">
+<AnchorPane fx:id="mainForm" prefHeight="720.0" prefWidth="1280.0" styleClass="background-form" stylesheets="@loginDesign.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginPageController">
    <children>
-      <AnchorPane fx:id="mainForm" prefHeight="600.0" prefWidth="800.0">
+      <CubicCurve controlX1="958.0" controlX2="1100.0" controlY1="500.0" controlY2="-500.0" endX="1275.0" endY="715.0" fill="DODGERBLUE" startX="400.0" startY="715.0" stroke="BLACK" styleClass="shape2" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <AnchorPane layoutX="390.0" layoutY="60.0" prefHeight="600.0" prefWidth="500.0" styleClass="login-form" stylesheets="@loginDesign.css" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="390.0" AnchorPane.topAnchor="60.0">
          <children>
-            <AnchorPane prefHeight="600.0" prefWidth="300.0" stylesheets="@loginDesign.css">
-               <children>
-                  <Label alignment="CENTER" layoutX="13.0" layoutY="300.0" prefHeight="28.0" prefWidth="290.0" text="Supermarket Manager Portal" textFill="WHITE" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                     <font>
-                        <Font name="Consolas" size="20.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="194.0" fitWidth="232.0" layoutX="54.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/manager.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="1.0" />
-                     </effect>
-                  </ImageView>
-                  <Label layoutX="9.0" layoutY="573.0" text="Made by Xutao Gao" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="10.0">
-                     <font>
-                        <Font name="Consolas" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="19.0" layoutY="583.0" text="xu611268@ucf.edu" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
-                     <font>
-                        <Font name="Consolas" size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-               <styleClass>
-                  <String fx:value="left_form" />
-                  <String fx:value="left-form" />
-                  <String fx:value="left_form" />
-               </styleClass></AnchorPane>
-            <AnchorPane layoutX="300.0" prefHeight="600.0" prefWidth="500.0" styleClass="right-form" stylesheets="@loginDesign.css">
-               <children>
-                  <Label alignment="CENTER" layoutX="80.0" layoutY="150.0" prefHeight="57.0" prefWidth="390.0" styleClass="welcome-text" stylesheets="@loginDesign.css" text="Welcome!" textFill="#0941b2" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                     <font>
-                        <Font name="Consolas Bold" size="48.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="usernameTextField" layoutX="100.0" layoutY="250.0" onKeyTyped="#onUsernameTyped" prefHeight="40.0" prefWidth="300.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <PasswordField fx:id="passwordField" layoutX="100.0" layoutY="325.0" onKeyTyped="#onPasswordTyped" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
-                  <TextField fx:id="passwordTextField" layoutX="100.0" layoutY="325.0" onKeyTyped="#onPasswordTyped" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" visible="false" />
-                  <Button fx:id="loginButton" alignment="CENTER" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="300.0" styleClass="login-button" stylesheets="@loginDesign.css" text="Login" />
-                  <Button layoutX="445.0" layoutY="11.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="53.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.topAnchor="1.0">
-                     <graphic>
-                     </graphic>
-                     <graphic>
-                        <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/close.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                  <CheckBox fx:id="showPasswordCheckBox" layoutX="100.0" layoutY="372.0" mnemonicParsing="false" styleClass="show-password-checkbox" stylesheets="@loginDesign.css" text="Show Password" />
-                  <Label fx:id="wrongInformationMessage" alignment="CENTER" layoutX="9.0" layoutY="450.0" prefHeight="17.0" prefWidth="391.0" text="Your username or password is incorrect." textFill="#ff6161" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                     <font>
-                        <Font name="Consolas" size="12.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="394.0" layoutY="11.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="53.0" styleClass="minimize" stylesheets="@loginDesign.css" AnchorPane.topAnchor="1.0">
-                     <graphic>
-                        <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/minimize.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </AnchorPane>
+            <Label alignment="CENTER" layoutX="80.0" layoutY="150.0" prefHeight="57.0" prefWidth="390.0" styleClass="title-text" stylesheets="@loginDesign.css" text="Welcome!" textFill="#0941b2" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+               <font>
+                  <Font name="Consolas Bold" size="48.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameTextField" layoutX="100.0" layoutY="250.0" onKeyTyped="#onUsernameTyped" prefHeight="40.0" prefWidth="300.0" promptText="Username" styleClass="textfield" stylesheets="@loginDesign.css" />
+            <PasswordField fx:id="passwordField" layoutX="100.0" layoutY="325.0" onKeyTyped="#onPasswordTyped" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" />
+            <TextField fx:id="passwordTextField" layoutX="100.0" layoutY="325.0" onKeyTyped="#onPasswordTyped" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="textfield" stylesheets="@loginDesign.css" visible="false" />
+            <Button fx:id="loginButton" alignment="CENTER" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="300.0" styleClass="login-button" stylesheets="@loginDesign.css" text="Login" />
+            <CheckBox fx:id="showPasswordCheckBox" layoutX="100.0" layoutY="372.0" mnemonicParsing="false" styleClass="show-password-checkbox" stylesheets="@loginDesign.css" text="Show Password" />
+            <Label fx:id="wrongInformationMessage" alignment="CENTER" layoutX="9.0" layoutY="450.0" prefHeight="17.0" prefWidth="391.0" text="Your username or password is incorrect." textFill="#ff6161" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+               <font>
+                  <Font name="Consolas" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="5.0" layoutY="100.0" prefHeight="28.0" prefWidth="290.0" stylesheets="@loginDesign.css" text="Manager Portal" textFill="#0941b2" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+               <font>
+                  <Font name="Consolas Bold" size="24.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
+      <CubicCurve controlX1="50.0" controlX2="200.0" controlY1="-130.0" controlY2="684.0" endX="750.0" endY="715.0" fill="DODGERBLUE" startX="5.0" startY="715.0" stroke="BLACK" styleClass="shape1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <Label layoutX="70.0" layoutY="688.0" text="xu611268@ucf.edu" textFill="#949494">
+         <font>
+            <Font name="Verdana Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="70.0" layoutY="668.0" text="Made by Xutao Gao" textFill="#949494">
+         <font>
+            <Font name="Verdana Bold" size="13.0" />
+         </font>
+      </Label>
+      <Button mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="50.0" styleClass="close" stylesheets="@loginDesign.css" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+         <graphic>
+            <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/close.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="1170.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="53.0" styleClass="minimize" stylesheets="@loginDesign.css" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="3.0">
+         <graphic>
+            <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/minimize.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="194.0" fitWidth="50.0" layoutX="3.0" layoutY="618.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+         <image>
+            <Image url="@../Images/manager.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="0.6" />
+         </effect>
+      </ImageView>
    </children>
-</StackPane>
+</AnchorPane>

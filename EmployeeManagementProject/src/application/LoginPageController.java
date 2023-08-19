@@ -18,14 +18,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class LoginPageController implements Initializable
+public class LoginPageController extends MyWindow implements Initializable
 {
 	@FXML
 	private AnchorPane mainForm;
@@ -50,9 +48,6 @@ public class LoginPageController implements Initializable
     
     private String incorrectInformationMessage = "Your username or password is incorrect.";
     private String emptyUsernameMessage = "Please fill in the username or password correctly";
-    
-    private double x;
-	private double y;
 	
 	private int usernameMaxLength = 12;
 	private int passwordMaxLength = 20;
@@ -91,7 +86,7 @@ public class LoginPageController implements Initializable
 				// Hide login window and login user
 				mainForm.getScene().getWindow().hide();
 				
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
 				Parent root = loader.load();
 				DashboardController dashBoardController = loader.getController();
 				
@@ -113,12 +108,12 @@ public class LoginPageController implements Initializable
 		}
 		catch (SQLException sqle)
 		{
-			System.out.println("Connection error in " + LoginPageController.class.getName());
+			System.out.println("Connection error in " + LoginPageController.class.getName() + " Login()");
 			sqle.printStackTrace();
 		}
     	catch (IOException ioe)
     	{
-    		System.out.println("Filename error in " + LoginPageController.class.getName());
+    		System.out.println("Filename error in " + LoginPageController.class.getName() + " Login()");
     		ioe.printStackTrace();
     	}
     }
@@ -152,30 +147,16 @@ public class LoginPageController implements Initializable
         passwordField.visibleProperty().bind(showPasswordCheckBox.selectedProperty().not());
 
         passwordTextField.textProperty().bindBidirectional(passwordField.textProperty());
-    }
-    
-    public void setInitialization(Stage stage)
-    {
-    	stage.getScene().setOnMousePressed((MouseEvent event) ->
-		{
-			x = event.getSceneX();
-			y = event.getSceneY();
-		});
-		
-    	stage.getScene().setOnMouseDragged((MouseEvent event) ->
-		{
-			stage.setX(event.getScreenX() - x);
-			stage.setY(event.getScreenY() - y);
-			
-			stage.setOpacity(0.8);
-		});
-		
-    	stage.getScene().setOnMouseReleased((MouseEvent event) ->
-		{
-			stage.setOpacity(1);
-		});
-		
-    	stage.initStyle(StageStyle.TRANSPARENT);
+        
+        passwordField.setOnKeyPressed(event ->
+        {
+        	if (event.getCode().equals(KeyCode.ENTER))
+        	{
+        		loginButton.requestFocus();
+        		login();
+        	}
+        });
+        
     }
     
     public void onUsernameTyped()

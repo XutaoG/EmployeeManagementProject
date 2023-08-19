@@ -9,7 +9,7 @@
 {
 	-fx-background-color: #e0e0e0;
 	-fx-border-color: black;
-	-fx-border-width: .4px .4px 1px .4px;
+	-fx-border-width: .4px .4px 0px .4px;
 }
 
 .close
@@ -48,7 +48,7 @@
 	-fx-font-family: "Arial";
 	-fx-font-size: 14px;
 	-fx-text-fill: white;
-	-fx-alignment: CENTER_LEFT;
+	-fx-alignment: CENTER;
 	-fx-border-width: 1px;
 	-fx-border-color: white;
 	-fx-border-radius: 5px;
@@ -62,6 +62,7 @@
 .logout-button
 {
 	-fx-background-color: #0e2f75;
+	-fx-font-family: Arial;
 	-fx-background-radius: 5px;
 	-fx-cursor: hand;
 }
@@ -71,7 +72,47 @@
 	-fx-background-color: #091f4f;
 }
 
-.primary-form
+.confirm-logout-button
+{
+	-fx-background-color: #2aa34b;
+	-fx-font-family: Arial;
+	-fx-background-radius: 5px;
+	-fx-cursor: hand;
+}
+
+.confirm-logout-button:hover
+{
+	-fx-background-color: #0b541f;
+}
+
+.cancel-logout-button
+{
+	-fx-background-color: #ed4747;
+	-fx-font-family: Arial;
+	-fx-background-radius: 5px;
+	-fx-cursor: hand;
+}
+
+.cancel-logout-button:hover
+{
+	-fx-background-color: #b53535;
+}
+
+.shape1
+{
+	-fx-fill: linear-gradient(to bottom, #fff29e, white);
+	-fx-stroke-width: 0;
+	-fx-opacity: 0.8;
+}
+
+.shape2
+{
+	-fx-fill: linear-gradient(to bottom, #ffbab3, white);
+	-fx-stroke-width: 0;
+	-fx-opacity: 0.8;
+}
+
+.information-form
 {
 	-fx-border-color: black;
 	-fx-border-width: 0px .4px .4px 0px;
