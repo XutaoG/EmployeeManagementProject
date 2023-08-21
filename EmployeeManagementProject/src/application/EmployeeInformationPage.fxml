@@ -68,7 +68,7 @@
 						<Font name="Arial" size="14.0" />
 					</font>
 				</Label>
-				<Button fx:id="addButton" layoutX="740.0" layoutY="600.0" mnemonicParsing="false" onAction="#updateEmployeeInformation" prefHeight="50.0" prefWidth="150.0" styleClass="add-button" stylesheets="@dashboardDesign.css" text="Add New Employee" />
+				<Button fx:id="addButton" layoutX="740.0" layoutY="600.0" mnemonicParsing="false" onAction="#launchAddEmployeePage" prefHeight="50.0" prefWidth="150.0" styleClass="add-button" stylesheets="@dashboardDesign.css" text="Add New Employee" />
 				<Button fx:id="editButton" layoutX="560.0" layoutY="600.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="edit-button" stylesheets="@dashboardDesign.css" text="Edit Employee" />
             <Label fx:id="employeeIdLabel" layoutX="120.0" layoutY="400.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
             <Label fx:id="firstNameLabel" layoutX="120.0" layoutY="460.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />

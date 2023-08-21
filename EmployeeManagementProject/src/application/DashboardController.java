@@ -101,11 +101,6 @@ public class DashboardController extends MyWindow implements Initializable
 	private PreparedStatement preparedStatement;
 	private ResultSet resultSet;
 
-	private String[] positionList = { "Cashier", "Food Preparation Worker", "Bagger", "Floral Assistant", "Stock Clerk",
-			"Pharmacist", "Butcher", "Bakery Associate", "Customer Service Representative", "Store Manager" };
-
-	private String[] genderList = { "Male", "Female", "Other" };
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
@@ -240,75 +235,6 @@ public class DashboardController extends MyWindow implements Initializable
 		displayUsername();
 	}
 
-//
-// public void addEmployeeShowListData()
-// {
-// addEmployeeDataList = addEmployeeGetListData();
-//
-// addEmployeeColumnEmployeeId.setCellValueFactory(new
-// PropertyValueFactory<>("employeeId"));
-// addEmployeeColumnFirstName.setCellValueFactory(new
-// PropertyValueFactory<>("firstName"));
-// addEmployeeColumnLastName.setCellValueFactory(new
-// PropertyValueFactory<>("lastName"));
-// addEmployeeColumnGender.setCellValueFactory(new
-// PropertyValueFactory<>("gender"));
-// addEmployeeColumnPosition.setCellValueFactory(new
-// PropertyValueFactory<>("position"));
-// addEmployeeColumnPhoneNumber.setCellValueFactory(new
-// PropertyValueFactory<>("phoneNumber"));
-// addEmployeeColumnDate.setCellValueFactory(new
-// PropertyValueFactory<>("date"));
-//
-// addEmployeeTableView.setItems(addEmployeeDataList);
-//
-// }
-//
-// public void addEmployeeSelect()
-// {
-//	 EmployeeData employeeData =
-//	 addEmployeeTableView.getSelectionModel().getSelectedItem();
-//	
-//	 int index = addEmployeeTableView.getSelectionModel().getSelectedIndex();
-//	
-//	 if (index < 0)
-//	 {
-//	 return;
-//	 }
-//	
-//	 addEmployeeEmployeeID.setText(String.valueOf(employeeData.getEmployeeId()));
-//	 addEmployeeFirstName.setText(employeeData.getFirstName());
-//	 addEmployeeLastName.setText(employeeData.getLastName());
-//	 addEmployeePhoneNumber.setText(employeeData.getPhoneNumber());
-//	
-//	 UserData.path = employeeData.getImage();
-//	
-//	 String uri = "file:" + employeeData.getImage();
-//	 Image employeeImage = new Image(uri, addEmployeeImageView.getFitWidth(),
-//	 addEmployeeImageView.getFitHeight(), false, true);
-//	
-//	 addEmployeeImageView.setImage(employeeImage);
-// }
-	
-	
-	
-	
-//
-// public void addEmployeeInsertImage()
-// {
-// FileChooser open = new FileChooser();
-// File file = open.showOpenDialog(mainForm.getScene().getWindow());
-//
-// if (file != null)
-// {
-// UserData.path = file.getAbsolutePath();
-//
-// Image image = new Image(file.toURI().toString(),
-// addEmployeeImageView.getFitWidth(), addEmployeeImageView.getFitHeight(),
-// false, true);
-// addEmployeeImageView.setImage(image);
-// }
-// }
 //
 // public void addEmployeeAdd()
 // {

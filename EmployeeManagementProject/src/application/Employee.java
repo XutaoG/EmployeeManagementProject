@@ -4,6 +4,12 @@ import java.sql.Date;
 
 public abstract class Employee
 {	
+	public static final String[] genders = {"Male", "Female", "Other"};
+	public static final String[] employeeTypes = {"Salaried", "Waged"};
+	public static final String[] status = {"Active", "Inactive"};
+	public static final String[] positions = { "Cashier", "Food Preparation Worker", "Bagger", "Floral Assistant", "Stock Clerk",
+			"Pharmacist", "Butcher", "Bakery Associate", "Customer Service Representative", "Store Manager" };
+	
 	private String employeeId;
 	private String isActive;
 	private String firstName;

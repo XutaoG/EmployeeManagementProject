@@ -1,24 +1,33 @@
 package application;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-public class EmployeeInformationController
-{
+public class EmployeeInformationController implements Initializable
+{	
 	@FXML
 	private TextField search;
 	
@@ -93,8 +102,12 @@ public class EmployeeInformationController
     // SQL connection
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private Statement statement;
     private ResultSet resultSet;
+    
+    public void initialize(URL arg0, ResourceBundle arg1)
+	{
+    	showEmployeeList();
+	}
     
     public void updateEmployeeInformation()
     {    	
@@ -121,7 +134,7 @@ public class EmployeeInformationController
     		{		
     			String employeeType = resultSet.getString("employeeType");
     			
-    			if (employeeType.compareTo("salaried") == 0)
+    			if (employeeType.compareTo("Salaried") == 0)
     			{
     				employee = new SalariedEmployee(resultSet.getString("employeeId"),
     						resultSet.getString("isActive"),
@@ -133,7 +146,7 @@ public class EmployeeInformationController
     						resultSet.getDate("date"),
     						resultSet.getDouble("pay"));		
     			}
-    			else if (employeeType.compareTo("waged") == 0)
+    			else if (employeeType.compareTo("Waged") == 0)
     			{
     				employee = new WagedEmployee(resultSet.getString("employeeId"),
     						resultSet.getString("isActive"),
@@ -222,5 +235,31 @@ public class EmployeeInformationController
     		payText.setText("Salary ($/Year):");
     		payLabel.setText(String.valueOf(((WagedEmployee) employee).getWage()));
     	}
+    }
+    
+    public void launchAddEmployeePage()
+    {
+    	try
+		{
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("AddEmployeePage.fxml"));
+			Parent root = loader.load();
+			AddEmployeeController addEmployeeController = loader.getController();
+			
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			
+			addEmployeeController.setInitialization(stage);
+			
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+			
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+    	
+    	
     }
 }
