@@ -27,7 +27,7 @@
                         <Font name="Arial" size="12.0" />
                      </font>
                   </Label>
-                  <Button fx:id="closeButton" layoutX="1141.0" layoutY="3.0" mnemonicParsing="false" onAction="#close" prefHeight="22.0" prefWidth="50.0" styleClass="close" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+                  <Button fx:id="closeButton" layoutX="1141.0" layoutY="3.0" mnemonicParsing="false" onAction="#close" prefHeight="22.0" prefWidth="50.0" styleClass="close" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
                      <graphic>
                         <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -36,7 +36,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="minimizeButton" layoutX="1089.0" layoutY="3.0" mnemonicParsing="false" onAction="#minimize" prefHeight="22.0" prefWidth="53.0" styleClass="minimize" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="3.0">
+                  <Button fx:id="minimizeButton" layoutX="1089.0" layoutY="3.0" mnemonicParsing="false" onAction="#minimize" prefHeight="22.0" prefWidth="53.0" styleClass="minimize" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="3.0">
                      <graphic>
                         <ImageView fitHeight="14.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -89,7 +89,7 @@
                   <Font name="Consolas" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="addEmployeeButton" layoutX="15.0" layoutY="350.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="nav-button" stylesheets="@dashboardDesign.css" text="Add Employee" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+            <Button fx:id="employeeInformationButton" layoutX="15.0" layoutY="350.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="220.0" styleClass="nav-button" stylesheets="@dashboardDesign.css" text="Employee Information" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -161,7 +161,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="information-form" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane fx:id="homeForm" prefHeight="750.0" prefWidth="950.0">
+            <AnchorPane fx:id="homeForm" prefHeight="750.0" prefWidth="950.0" visible="false">
                <children>
                   <fx:include source="Home.fxml" />
                </children>
@@ -173,7 +173,7 @@
             </AnchorPane>
             <AnchorPane fx:id="addEmployeeForm" prefHeight="750.0" prefWidth="950.0" visible="false">
                <children>
-                  <fx:include source="AddEmployee.fxml" />
+                  <fx:include source="EmployeeInformationPage.fxml" />
                </children>
             </AnchorPane>
          </children>

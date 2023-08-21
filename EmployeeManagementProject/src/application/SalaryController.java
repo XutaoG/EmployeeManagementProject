@@ -28,22 +28,22 @@ public class SalaryController
 	private TextField salary;
 
 	@FXML
-	private TableColumn<EmployeeData, String> salaryColumnEmployeeID;
+	private TableColumn<Employee, String> salaryColumnEmployeeID;
 
 	@FXML
-	private TableColumn<EmployeeData, String> salaryColumnFirstName;
+	private TableColumn<Employee, String> salaryColumnFirstName;
 
 	@FXML
-	private TableColumn<EmployeeData, String> salaryColumnLastName;
+	private TableColumn<Employee, String> salaryColumnLastName;
 
 	@FXML
-	private TableColumn<EmployeeData, String> salaryColumnPosition;
+	private TableColumn<Employee, String> salaryColumnPosition;
 
 	@FXML
-	private TableColumn<EmployeeData, String> salaryColumnSalary;
+	private TableColumn<Employee, String> salaryColumnSalary;
 
 	@FXML
-	private TableView<EmployeeData> salaryTableView;
+	private TableView<Employee> salaryTableView;
 
 	@FXML
 	private Button updateButton;

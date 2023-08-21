@@ -211,7 +211,7 @@
 
 .add-button
 {
-	-fx-background-color: #065225;
+	-fx-background-color: #0b872c;
 	-fx-background-radius: 8px;
 	-fx-font-size: 14px;
 	-fx-font-family: "Arial";
@@ -221,12 +221,12 @@
 
 .add-button:hover
 {
-	-fx-background-color: #07361a;
+	-fx-background-color: #0b5c21;
 }
 
-.update-button
+.edit-button
 {
-	-fx-background-color: #3016a1;
+	-fx-background-color: #0e208a;
 	-fx-background-radius: 8px;
 	-fx-font-size: 14px;
 	-fx-font-family: "Arial";
@@ -234,39 +234,9 @@
 	-fx-cursor: hand;
 }
 
-.update-button:hover
+.edit-button:hover
 {
-	-fx-background-color: #23126b;
-}
-
-.clear-button
-{
-	-fx-background-color: #7223c2;
-	-fx-background-radius: 8px;
-	-fx-font-size: 14px;
-	-fx-font-family: "Arial";
-	-fx-text-fill: white;
-	-fx-cursor: hand;
-}
-
-.clear-button:hover
-{
-	-fx-background-color: #461678;
-}
-
-.delete-button
-{
-	-fx-background-color: #b53535;
-	-fx-background-radius: 8px;
-	-fx-font-size: 14px;
-	-fx-font-family: "Arial";
-	-fx-text-fill: white;
-	-fx-cursor: hand;
-}
-
-.delete-button:hover
-{
-	-fx-background-color: #731c1c;
+	-fx-background-color: #111d61;
 }
 
 .label-info

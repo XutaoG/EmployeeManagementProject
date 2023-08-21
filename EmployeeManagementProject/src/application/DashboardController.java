@@ -66,7 +66,7 @@ public class DashboardController extends MyWindow implements Initializable
 	private Label usernameLabel;
 
 	@FXML
-	private Button addEmployeeButton;
+	private Button employeeInformationButton;
 
 	@FXML
 	private Button homeButton;
@@ -93,8 +93,8 @@ public class DashboardController extends MyWindow implements Initializable
 	@FXML
 	private AnchorPane salaryForm;
 
-	private ObservableList<EmployeeData> addEmployeeDataList = null;
-	private ObservableList<EmployeeData> salaryDataList = null;
+	private ObservableList<Employee> addEmployeeDataList = null;
+	private ObservableList<Employee> salaryDataList = null;
 
 	private Connection connection;
 	private Statement statement;
@@ -133,7 +133,7 @@ public class DashboardController extends MyWindow implements Initializable
 	public void openDefaultForm()
 	{
 		homeButton.setStyle("-fx-background-color: transparent");
-		addEmployeeButton.setStyle("-fx-background-color: transparent");
+		employeeInformationButton.setStyle("-fx-background-color: transparent");
 		salaryButton.setStyle("-fx-background-color: transparent");
 
 		addEmployeeForm.setVisible(false);
@@ -146,7 +146,7 @@ public class DashboardController extends MyWindow implements Initializable
 	public void switchForm(ActionEvent event)
 	{
 		homeButton.setStyle("-fx-background-color: transparent");
-		addEmployeeButton.setStyle("-fx-background-color: transparent");
+		employeeInformationButton.setStyle("-fx-background-color: transparent");
 		salaryButton.setStyle("-fx-background-color: transparent");
 
 		homeForm.setVisible(false);
@@ -163,11 +163,11 @@ public class DashboardController extends MyWindow implements Initializable
 // homeSetTotalInactive();
 // homeSetChart();
 		}
-		else if (event.getSource() == addEmployeeButton)
+		else if (event.getSource() == employeeInformationButton)
 		{
 			addEmployeeForm.setVisible(true);
-			addEmployeeButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #083fb5, #f124f8)");
-
+			employeeInformationButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #083fb5, #f124f8)");
+			
 // addEmployeePositionList();
 // addEmployeeGenderList();
 // addEmployeeSearch();
@@ -240,41 +240,6 @@ public class DashboardController extends MyWindow implements Initializable
 		displayUsername();
 	}
 
-// public ObservableList<EmployeeData> addEmployeeGetListData()
-// {
-// ObservableList<EmployeeData> observableList =
-// FXCollections.observableArrayList();
-//
-// connection = DatabaseUtility.connectToDatabase();
-//
-// try
-// {
-// preparedStatement = connection.prepareStatement("SELECT * FROM employees");
-// resultSet = preparedStatement.executeQuery();
-// EmployeeData employeeData;
-//
-// while (resultSet.next())
-// {
-// employeeData = new EmployeeData(resultSet.getString("employeeId"),
-// resultSet.getString("firstName"),
-// resultSet.getString("lastName"),
-// resultSet.getString("gender"),
-// resultSet.getString("phoneNumber"),
-// resultSet.getString("position"),
-// resultSet.getString("image"),
-// resultSet.getDate("date"));
-//
-// observableList.add(employeeData);
-// }
-// }
-// catch (SQLException sqle)
-// {
-// System.out.println("Connection error in " + this.getClass().getName());
-// sqle.printStackTrace();
-// }
-//
-// return observableList;
-// }
 //
 // public void addEmployeeShowListData()
 // {
@@ -301,29 +266,33 @@ public class DashboardController extends MyWindow implements Initializable
 //
 // public void addEmployeeSelect()
 // {
-// EmployeeData employeeData =
-// addEmployeeTableView.getSelectionModel().getSelectedItem();
-//
-// int index = addEmployeeTableView.getSelectionModel().getSelectedIndex();
-//
-// if (index < 0)
-// {
-// return;
+//	 EmployeeData employeeData =
+//	 addEmployeeTableView.getSelectionModel().getSelectedItem();
+//	
+//	 int index = addEmployeeTableView.getSelectionModel().getSelectedIndex();
+//	
+//	 if (index < 0)
+//	 {
+//	 return;
+//	 }
+//	
+//	 addEmployeeEmployeeID.setText(String.valueOf(employeeData.getEmployeeId()));
+//	 addEmployeeFirstName.setText(employeeData.getFirstName());
+//	 addEmployeeLastName.setText(employeeData.getLastName());
+//	 addEmployeePhoneNumber.setText(employeeData.getPhoneNumber());
+//	
+//	 UserData.path = employeeData.getImage();
+//	
+//	 String uri = "file:" + employeeData.getImage();
+//	 Image employeeImage = new Image(uri, addEmployeeImageView.getFitWidth(),
+//	 addEmployeeImageView.getFitHeight(), false, true);
+//	
+//	 addEmployeeImageView.setImage(employeeImage);
 // }
-//
-// addEmployeeEmployeeID.setText(String.valueOf(employeeData.getEmployeeId()));
-// addEmployeeFirstName.setText(employeeData.getFirstName());
-// addEmployeeLastName.setText(employeeData.getLastName());
-// addEmployeePhoneNumber.setText(employeeData.getPhoneNumber());
-//
-// UserData.path = employeeData.getImage();
-//
-// String uri = "file:" + employeeData.getImage();
-// Image employeeImage = new Image(uri, addEmployeeImageView.getFitWidth(),
-// addEmployeeImageView.getFitHeight(), false, true);
-//
-// addEmployeeImageView.setImage(employeeImage);
-// }
+	
+	
+	
+	
 //
 // public void addEmployeeInsertImage()
 // {

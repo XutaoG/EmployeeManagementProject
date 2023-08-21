@@ -2,37 +2,27 @@ package application;
 
 import java.sql.Date;
 
-public class EmployeeData
-{
+public abstract class Employee
+{	
 	private String employeeId;
+	private String isActive;
 	private String firstName;
 	private String lastName;
 	private String gender;
 	private String phoneNumber;
 	private String position;
-	private String image;
 	private Date date;
-	private double salary;
 	
-	public EmployeeData(String employeeId, String firstName, String lastName, String gender, String phoneNumber, String position, String image, Date date)
+	public Employee(String employeeId, String isActive, String firstName, String lastName, String gender, String phoneNumber, String position, Date date)
 	{
 		this.setEmployeeId(employeeId);
+		this.setIsActive(isActive);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setGender(gender);
 		this.setPhoneNumber(phoneNumber);
 		this.setPosition(position);
-		this.setImage(image);
 		this.setDate(date);
-	}
-	
-	public EmployeeData(String employeeId, String firstName, String lastName, String position, double salary)
-	{
-		this.setEmployeeId(employeeId);
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.setPosition(position);
-		this.setSalary(salary);
 	}
 
 	public String getEmployeeId()
@@ -43,6 +33,16 @@ public class EmployeeData
 	public void setEmployeeId(String employeeId)
 	{
 		this.employeeId = employeeId;
+	}
+	
+	public String getIsActive()
+	{
+		return isActive;
+	}
+	
+	public void setIsActive(String isActive)
+	{
+		this.isActive = isActive;
 	}
 
 	public String getFirstName()
@@ -95,16 +95,6 @@ public class EmployeeData
 		this.position = position;
 	}
 
-	public String getImage()
-	{
-		return image;
-	}
-
-	public void setImage(String image)
-	{
-		this.image = image;
-	}
-
 	public Date getDate()
 	{
 		return date;
@@ -113,6 +103,17 @@ public class EmployeeData
 	public void setDate(Date date)
 	{
 		this.date = date;
+	}
+}
+
+class SalariedEmployee extends Employee
+{
+	private double salary;
+	
+	public SalariedEmployee(String employeeId, String isActive, String firstName, String lastName, String gender, String phoneNumber, String position, Date date, double salary)
+	{
+		super(employeeId, isActive, firstName, lastName, gender, phoneNumber, position, date);
+		this.salary = salary;
 	}
 	
 	public double getSalary()
@@ -125,3 +126,26 @@ public class EmployeeData
 		this.salary = salary;
 	}
 }
+
+class WagedEmployee extends Employee
+{
+	private double wage;
+	
+	public WagedEmployee(String employeeId, String isActive, String firstName, String lastName, String gender, String phoneNumber, String position, Date date, double wage)
+	{
+		super(employeeId, isActive, firstName, lastName, gender, phoneNumber, position, date);
+		this.wage = wage;
+	}
+	
+	public double getWage()
+	{
+		return wage;
+	}
+	
+	public void setWage(double wage)
+	{
+		this.wage = wage;
+	}
+}
+
+

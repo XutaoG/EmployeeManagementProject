@@ -1,0 +1,66 @@
+.primary-panel
+{
+	-fx-background-color: white;
+}
+
+.shadow
+{
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 6, 0, 0, 0);
+}
+
+.foreground-panel
+{
+	-fx-background-color: white;
+	-fx-background-radius: 10px;
+}
+
+.textfield
+{
+	-fx-background-color: linear-gradient(to bottom, #efefef, #eee);
+	-fx-border-color: linear-gradient(to bottom right, #f124f8, #083fb5);
+	-fx-border-width: 1px;
+	-fx-font-size: 14px;
+	-fx-font-family: "Arial";
+	-fx-border-radius: 4px;
+}
+
+.textfield:focused
+{
+	-fx-border-width: 2px;
+	-fx-background-color: white;
+}
+
+.add-button
+{
+	-fx-background-color: #0b872c;
+	-fx-background-radius: 8px;
+	-fx-font-size: 14px;
+	-fx-font-family: "Arial";
+	-fx-text-fill: white;
+	-fx-cursor: hand;
+}
+
+.add-button:hover
+{
+	-fx-background-color: #0b5c21;
+}
+
+.cancel-logout-button
+{
+	-fx-background-color: #ed4747;
+	-fx-background-radius: 8px;
+	-fx-font-size: 14px;
+	-fx-font-family: Arial;
+	-fx-text-fill: white;
+	-fx-cursor: hand;
+}
+
+.cancel-logout-button:hover
+{
+	-fx-background-color: #b53535;
+}
+
+.header-bar
+{
+	-fx-background-color: #e0e0e0;
+}
