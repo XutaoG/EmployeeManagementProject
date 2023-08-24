@@ -10,6 +10,13 @@ public abstract class Employee
 	public static final String[] positions = { "Cashier", "Food Preparation Worker", "Bagger", "Floral Assistant", "Stock Clerk",
 			"Pharmacist", "Butcher", "Bakery Associate", "Customer Service Representative", "Store Manager" };
 	
+	public static final String MALE = "Male";
+	public static final String FEMALE = "Female";
+	public static final String ACTIVE = "Active";
+	public static final String INACTIVE = "Inactive";
+	public static final String SALARIED = "Salaried";
+	public static final String WAGED = "Waged";
+	
 	private String employeeId;
 	private String isActive;
 	private String firstName;

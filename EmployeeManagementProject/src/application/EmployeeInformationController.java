@@ -118,7 +118,6 @@ public class EmployeeInformationController implements Initializable
     private ObservableList<Employee> getEmployeeList()
     {
     	ObservableList<Employee> list = FXCollections.observableArrayList();
-    	System.out.println(list.size());
     	
     	connection = DatabaseUtility.connectToDatabase();
     	
@@ -206,14 +205,14 @@ public class EmployeeInformationController implements Initializable
     
     public void employeeSelect()
     {
-    	Employee employee = tableView.getSelectionModel().getSelectedItem();
-    	
     	int index = tableView.getSelectionModel().getSelectedIndex();
     	
     	if (index < 0)
     	{
     		return;
     	}
+    	
+    	Employee employee = tableView.getSelectionModel().getSelectedItem();
     	
     	employeeIdLabel.setText(employee.getEmployeeId());
     	isActiveLabel.setText(employee.getIsActive());
@@ -237,6 +236,12 @@ public class EmployeeInformationController implements Initializable
     	}
     }
     
+    // TO BE REMOVED
+    public void refresh()
+    {
+    	showEmployeeList();
+    }
+    
     public void launchAddEmployeePage()
     {
     	try
@@ -257,9 +262,44 @@ public class EmployeeInformationController implements Initializable
 		}
 		catch (IOException e)
 		{
+			System.out.println("Connection error in " + this.getClass().getName() + " launchAddEmployeePage()");
 			e.printStackTrace();
 		}
+    }
+    
+    public void launchEditEmployeePage()
+    {
     	
+    	int index = tableView.getSelectionModel().getSelectedIndex();
     	
+    	if (index < 0)
+    	{
+    		return;
+    	}
+    	
+    	Employee employee = tableView.getSelectionModel().getSelectedItem();
+    	
+    	try
+		{
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("EditEmployeePage.fxml"));
+			Parent root = loader.load();
+			EditEmployeeController editEmployeeController = loader.getController();
+			
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			
+			editEmployeeController.setInitialization(stage);
+			editEmployeeController.displayEmployee(employee);
+			
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+			
+		}
+		catch (IOException e)
+		{
+			System.out.println("Connection error in " + this.getClass().getName() + " launchEditEmployeePage()");
+			e.printStackTrace();
+		}
     }
 }

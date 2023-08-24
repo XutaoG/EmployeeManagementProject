@@ -20,7 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class AddEmployeeController extends MyWindow implements Initializable
+public class EditEmployeeController extends MyWindow implements Initializable
 {
 	@FXML
 	private Button closeButton;
@@ -31,75 +31,77 @@ public class AddEmployeeController extends MyWindow implements Initializable
 	@FXML
     private Button addEmployeeButton;
 
+	@FXML
+	private Button deleteEmployeeButton;
+	
+	@FXML
+	private Label employeeIdLabel;
+	
     @FXML
-    private TextField employeeIdTextField;
+    private Label blankFieldErrorLabel;
 
     @FXML
     private TextField firstNameTextField;
-
+    
     @FXML
     private TextField lastNameTextField;
     
     @FXML
-    private ChoiceBox<String> genderChoiceBox;
+    private ChoiceBox<String> employeeTypeChoiceBox;
 
     @FXML
-    private ChoiceBox<String> employeeTypeChoiceBox;
-    
+    private ChoiceBox<String> genderChoiceBox;
+
     @FXML
     private ChoiceBox<String> positionChoiceBox;
     
     @FXML
-    private TextField payTextField;
+    private ChoiceBox<String> statusChoiceBox;
 
     @FXML
     private Label payText;
 
     @FXML
-    private TextField phoneNumberTextField;
+    private TextField payTextField;
 
     @FXML
-    private Label blankFieldErrorLabel;
-    
-    @FXML
-    private Label employeeIdErrorLabel;
-    
-    @FXML
     private Label phoneNumberErrorLabel;
+
+    @FXML
+    private TextField phoneNumberTextField;
     
     @FXML
-    private Label employeeAddedLabel;
+    private Label employeeUpdatedLabel;
     
     private PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));;
     
-    private String incorrectEmployeeIdMessage = "Employee ID must have 7 digits";
     private String incorrectPhoneNumberMessage = "Please enter a valid phone number";
     private String blankFieldsMessage = "Please fill in all appropriate fields";
-    private String duplicateEmployeeIdMessage = "employee ID already exist";
-    private String payDefaultText = "Salary/Wage:";
     private String paySalaryText = "Salary ($/Year):";
     private String payWageText = "Wage ($/Hour):";
-    private String employeeAddedText = "Employee Added";
+    private String employeeUpdatedText = "Employee Updated";
     
-    private int employeeIdLength = 7;
     private int phoneNumberLength = 10;
     private int nameMaxLength = 16;
-
+    
     // SQL connections
     Connection connection;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
-    
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		clearTextFields();		
+		phoneNumberErrorLabel.setVisible(false);
+		blankFieldErrorLabel.setVisible(false);
+		employeeUpdatedLabel.setVisible(false);
+		
+		employeeUpdatedLabel.setText(employeeUpdatedText);
 		
 		positionChoiceBox.setItems(FXCollections.observableArrayList(Employee.positions));
 		genderChoiceBox.setItems(FXCollections.observableArrayList(Employee.genders));
 		employeeTypeChoiceBox.setItems(FXCollections.observableArrayList(Employee.employeeTypes));
-		
-		employeeTypeChoiceBox.setOnAction(event -> onEmployeeTypeSelected());
+		statusChoiceBox.setItems(FXCollections.observableArrayList(Employee.status));
 	}
 	
 	public void close()
@@ -109,33 +111,64 @@ public class AddEmployeeController extends MyWindow implements Initializable
 		stage.close();
 	}
 	
-	public void addEmployee()
+	public void displayEmployee(Employee employee)
+	{
+		employeeIdLabel.setText(employee.getEmployeeId());
+		firstNameTextField.setText(employee.getFirstName());
+		lastNameTextField.setText(employee.getLastName());
+		genderChoiceBox.getSelectionModel().select(employee.getGender());
+		statusChoiceBox.getSelectionModel().select(employee.getIsActive());
+		phoneNumberTextField.setText(employee.getPhoneNumber());
+		positionChoiceBox.getSelectionModel().select(employee.getPosition());
+		
+		if (employee instanceof SalariedEmployee)
+		{
+			employeeTypeChoiceBox.getSelectionModel().select(Employee.SALARIED);
+			payText.setText(paySalaryText);
+			payTextField.setText(String.valueOf(((SalariedEmployee) employee).getSalary()));
+		}
+		else if (employee instanceof WagedEmployee)
+		{
+			employeeTypeChoiceBox.getSelectionModel().select(Employee.WAGED);
+			payText.setText(payWageText);
+			payTextField.setText(String.valueOf(((WagedEmployee) employee).getWage()));
+		}
+	}
+	
+	public void deleteEmployee()
+	{
+		try
+		{
+			connection = DatabaseUtility.connectToDatabase();
+			
+			preparedStatement = connection.prepareStatement("DELETE FROM employees WHERE employeeId = ?");
+			preparedStatement.setString(1, employeeIdLabel.getText());
+			preparedStatement.execute();
+		}
+		catch (SQLException sqle)
+		{
+			System.out.println("Connection error in " + this.getClass().getName() + " deleteEmployee()");
+			sqle.printStackTrace();
+		}
+	}
+	
+	public void editEmployee()
 	{
 		boolean hasError = false;
 		
 		// Check blank fields
-		if (employeeIdTextField.getText().isEmpty() || firstNameTextField.getText().isEmpty() || lastNameTextField.getText().isEmpty() ||
+		if (firstNameTextField.getText().isEmpty() || lastNameTextField.getText().isEmpty() || statusChoiceBox.getSelectionModel().getSelectedItem().isEmpty() ||
 				genderChoiceBox.getSelectionModel().getSelectedItem().isEmpty() || phoneNumberTextField.getText().isEmpty() ||
 				positionChoiceBox.getSelectionModel().getSelectedItem().isEmpty() || payTextField.getText().isEmpty())
 		{
 			blankFieldErrorLabel.setText(blankFieldsMessage);
 			blankFieldErrorLabel.setVisible(true);
-			
-			pauseTransition.setDuration(Duration.seconds(5.0));
+			hasError = true;
+			pauseTransition.setDuration(Duration.seconds(3.0));
 			pauseTransition.setOnFinished(event -> blankFieldErrorLabel.setVisible(false));
 			pauseTransition.play();
-			
-			hasError = true;
 		}
-		
-		// Check employee ID length
-		if (employeeIdTextField.getText().length() != employeeIdLength)
-		{
-			employeeIdErrorLabel.setText(incorrectEmployeeIdMessage);
-			employeeIdErrorLabel.setVisible(true);
-			hasError = true;
-		}
-		
+				
 		// Check phone number Length
 		if (phoneNumberTextField.getText().length() != phoneNumberLength)
 		{
@@ -152,112 +185,47 @@ public class AddEmployeeController extends MyWindow implements Initializable
 		try
 		{
 			connection = DatabaseUtility.connectToDatabase();
-						
-			preparedStatement = connection.prepareStatement(String.format("SELECT * FROM employees WHERE employeeId = '%s'", employeeIdTextField.getText()));
-			resultSet = preparedStatement.executeQuery();
+
 			
-			// Duplicate employee ID found
-			if (resultSet.next())
-			{
-				employeeIdErrorLabel.setText(duplicateEmployeeIdMessage);
-				employeeIdErrorLabel.setVisible(true);
-				return;
-			}
-			
-			preparedStatement = connection.prepareStatement("INSERT INTO employees "
-					+ "(employeeId, isActive, firstName, lastName, gender, phoneNumber, position, date, employeeType, pay) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			preparedStatement.setString(1, employeeIdTextField.getText());
-			preparedStatement.setString(2, "Active");
-			preparedStatement.setString(3, firstNameTextField.getText());
-			preparedStatement.setString(4, lastNameTextField.getText());
-			preparedStatement.setString(5, genderChoiceBox.getSelectionModel().getSelectedItem());
-			preparedStatement.setString(6, phoneNumberTextField.getText());
-			preparedStatement.setString(7, positionChoiceBox.getSelectionModel().getSelectedItem());
-			preparedStatement.setDate(8, new java.sql.Date(new Date().getTime()));
-			preparedStatement.setString(9, employeeTypeChoiceBox.getSelectionModel().getSelectedItem());
-			preparedStatement.setDouble(10, Double.parseDouble(String.format("%.2f", Double.parseDouble(payTextField.getText()))));
+			preparedStatement = connection.prepareStatement("UPDATE employees SET isActive = ?, firstName = ?, lastName = ?, gender = ?, "
+					+ "phoneNumber = ?, position = ?, employeeType = ?, pay = ? WHERE employeeId = ?");
+		
+			preparedStatement.setString(1, "Active");
+			preparedStatement.setString(2, firstNameTextField.getText());
+			preparedStatement.setString(3, lastNameTextField.getText());
+			preparedStatement.setString(4, genderChoiceBox.getSelectionModel().getSelectedItem());
+			preparedStatement.setString(5, phoneNumberTextField.getText());
+			preparedStatement.setString(6, positionChoiceBox.getSelectionModel().getSelectedItem());
+			preparedStatement.setString(7, employeeTypeChoiceBox.getSelectionModel().getSelectedItem());
+			preparedStatement.setDouble(8, Double.parseDouble(String.format("%.2f", Double.parseDouble(payTextField.getText()))));
+			preparedStatement.setString(9, employeeIdLabel.getText());
 			
 			preparedStatement.executeUpdate();
 			
-			clearTextFields();
+			employeeUpdatedLabel.setVisible(true);
 			
-			employeeAddedLabel.setText(employeeAddedText);
-			employeeAddedLabel.setVisible(true);
-			
+			pauseTransition.setOnFinished(event -> employeeUpdatedLabel.setVisible(false));
 			pauseTransition.setDuration(Duration.seconds(5.0));
-			pauseTransition.setOnFinished(event -> employeeAddedLabel.setVisible(false));
 			pauseTransition.play();
 		}
 		catch (SQLException sqle)
 		{
-			System.out.println("Connection error in " + this.getClass().getName() + " addEmployee()");
+			System.out.println("Connection error in " + this.getClass().getName() + " editEmployee()");
 			sqle.printStackTrace();
 		}
 	}
 	
-	public void onEmployeeTypeSelected()
-	{
-		if (employeeTypeChoiceBox.getSelectionModel().getSelectedItem() == null)
-		{
-			return;
-		}
-		
-		if (employeeTypeChoiceBox.getSelectionModel().getSelectedItem().compareTo("Salaried") == 0)
-		{
-			payText.setText(paySalaryText);
-		}
-		else if (employeeTypeChoiceBox.getSelectionModel().getSelectedItem().compareTo("Waged") == 0)
-		{
-			payText.setText(payWageText);
-		}
-	}
-	
-	private void clearTextFields()
-	{
-		blankFieldErrorLabel.setVisible(false);
-		employeeIdErrorLabel.setVisible(false);
-		phoneNumberErrorLabel.setVisible(false);
-		employeeAddedLabel.setVisible(false);
-		
-		employeeIdTextField.setText("");
-		firstNameTextField.setText("");
-		lastNameTextField.setText("");
-		genderChoiceBox.getSelectionModel().clearSelection();
-		phoneNumberTextField.setText("");
-		positionChoiceBox.getSelectionModel().clearSelection();
-		employeeTypeChoiceBox.getSelectionModel().clearSelection();
-		payTextField.setText("");
-		payText.setText(payDefaultText);
-	}
-	
-	public void onKeyTypedOnlyDigits(KeyEvent event)
+	public void onKeyTypedOnlyDigits()
 	{
 		int maxLength = 0;
-		String text;
 		int caretPosition;
 		
-		if (event.getSource() == employeeIdTextField)
-		{
-			maxLength = employeeIdLength;
-			text = ((TextField) event.getSource()).getText();
-    		caretPosition = employeeIdTextField.getCaretPosition();
-    		employeeIdErrorLabel.setVisible(false);
-		}
-		else if (event.getSource() == phoneNumberTextField)
-		{
-			maxLength = phoneNumberLength;
-			text = ((TextField) event.getSource()).getText();
-    		caretPosition = phoneNumberTextField.getCaretPosition();
-    		phoneNumberErrorLabel.setVisible(false);
-		}
-		else
-		{
-			return;
-		}
-		
-		TextField textField = (TextField) event.getSource();
-		
+		String text = phoneNumberTextField.getText();
+	
+		maxLength = phoneNumberLength;
+		caretPosition = phoneNumberTextField.getCaretPosition();
+		phoneNumberErrorLabel.setVisible(false);
+			
 		int length = text.length();
 		
 		if (caretPosition == 0)
@@ -269,8 +237,8 @@ public class AddEmployeeController extends MyWindow implements Initializable
 		
     	if (length > maxLength || !Character.isDigit(lastChar))
     	{    		
-    		textField.setText(text.substring(0, caretPosition - 1) + text.substring(caretPosition, length));
-    		textField.positionCaret(caretPosition - 1);
+    		phoneNumberTextField.setText(text.substring(0, caretPosition - 1) + text.substring(caretPosition, length));
+    		phoneNumberTextField.positionCaret(caretPosition - 1);
     	}
 	}
 	
@@ -341,17 +309,3 @@ public class AddEmployeeController extends MyWindow implements Initializable
     	}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
