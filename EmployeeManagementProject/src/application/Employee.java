@@ -37,6 +37,12 @@ public abstract class Employee
 		this.setPosition(position);
 		this.setDate(date);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return String.format("[%s, %s %s]", employeeId, firstName, lastName);
+	}
 
 	public String getEmployeeId()
 	{

@@ -135,37 +135,7 @@
 	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 6, 0, 0, 0);
 }
 
-.table-view
-{
-	-fx-background-color: transparent;
-	-fx-border-color: linear-gradient(to bottom right, #f124f8, #083fb5);
-	-fx-border-radius: 8px;
-	-fx-padding: 1;
-}
 
-.table-view .column-header-background
-{
-	-fx-background-color: linear-gradient(to bottom right, #f124f8, #083fb5); 
-	-fx-background-insets: 0 0 0 0;
-	-fx-background-radius: 8px 8px 0px 0px;
-}
-
-.table-view .table-column
-{
-	-fx-alignment: CENTER;
-}
-
-.table-view .column-header, .filter
-{
-	-fx-background-color: transparent;
-	-fx-size: 30px;
-}
-
-.table-view .column-header .label
-{
-	-fx-text-fill: white;
-	-fx-font-family: "Arial";
-}
 
 .textfield
 {
@@ -181,62 +151,6 @@
 {
 	-fx-border-width: 2px;
 	-fx-background-color: white;
-}
-
-.search
-{
-	-fx-background-color: white;
-	-fx-border-color: linear-gradient(to bottom right, #f124f8, #083fb5);
-	-fx-border-width: 1px;
-	-fx-font-size: 14px;
-	-fx-font-family: "Arial";
-	-fx-border-radius: 4px;
-	-fx-padding: 0px 0px 0.0px 32px;
-}
-
-.search:focused
-{
-	-fx-border-width: 2px;
-}
-
-.import-button
-{
-	-fx-background-color: lightgray;
-	-fx-text-fill: red;
-	-fx-cursor: hand;
-	-fx-background-radius: 8px;
-	-fx-font-size: 14px;
-	-fx-font-family: "Arial";
-}
-
-.add-button
-{
-	-fx-background-color: #0b872c;
-	-fx-background-radius: 8px;
-	-fx-font-size: 14px;
-	-fx-font-family: "Arial";
-	-fx-text-fill: white;
-	-fx-cursor: hand;
-}
-
-.add-button:hover
-{
-	-fx-background-color: #0b5c21;
-}
-
-.edit-button
-{
-	-fx-background-color: #0e208a;
-	-fx-background-radius: 8px;
-	-fx-font-size: 14px;
-	-fx-font-family: "Arial";
-	-fx-text-fill: white;
-	-fx-cursor: hand;
-}
-
-.edit-button:hover
-{
-	-fx-background-color: #111d61;
 }
 
 .label-info

@@ -48,8 +48,8 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="addEmployeeButton" layoutX="400.0" layoutY="335.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="30.0" prefWidth="150.0" styleClass="add-button" stylesheets="@employee-information-design.css" text="Add Employee" />
-            <Button fx:id="cancelButton" layoutX="300.0" layoutY="335.0" mnemonicParsing="false" onAction="#close" prefHeight="30.0" prefWidth="75.0" styleClass="cancel-logout-button" stylesheets="@employee-information-design.css" text="Cancel" />
+            <Button fx:id="addEmployeeButton" layoutX="400.0" layoutY="335.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="30.0" prefWidth="150.0" styleClass="green-button" stylesheets="@employee-information-design.css" text="Add Employee" />
+            <Button fx:id="cancelButton" layoutX="300.0" layoutY="335.0" mnemonicParsing="false" onAction="#close" prefHeight="30.0" prefWidth="75.0" styleClass="purple-button" stylesheets="@employee-information-design.css" text="Cancel" />
             <Label alignment="CENTER_RIGHT" layoutX="280.0" layoutY="187.0" prefWidth="110.0" text="Employee Type:">
                <font>
                   <Font name="Arial" size="14.0" />
@@ -63,18 +63,18 @@
             </Label>
             <ChoiceBox fx:id="genderChoiceBox" layoutX="120.0" layoutY="240.0" prefHeight="30.0" prefWidth="150.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
             <ChoiceBox fx:id="employeeTypeChoiceBox" layoutX="400.0" layoutY="180.0" onMouseClicked="#onEmployeeTypeSelected" prefHeight="30.0" prefWidth="150.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
-            <Label fx:id="blankFieldErrorLabel" alignment="CENTER_RIGHT" layoutX="70.0" layoutY="342.0" prefHeight="15.0" prefWidth="200.0" text="Please fill out all fields correctly" textFill="#ff2323">
+            <Label fx:id="blankFieldErrorLabel" alignment="CENTER_RIGHT" layoutX="70.0" layoutY="342.0" prefHeight="15.0" prefWidth="200.0" styleClass="warning-text" stylesheets="@employee-information-design.css" text="Please fill out all fields correctly" textFill="#ff2323">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
             <ChoiceBox fx:id="positionChoiceBox" layoutX="400.0" layoutY="120.0" prefHeight="30.0" prefWidth="150.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
-            <Label fx:id="employeeIdErrorLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="70.0" layoutY="95.0" prefHeight="15.0" prefWidth="200.0" text="Employee ID must have 7 digits" textFill="#ff2323">
+            <Label fx:id="employeeIdErrorLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="70.0" layoutY="95.0" prefHeight="15.0" prefWidth="200.0" styleClass="warning-text" stylesheets="@employee-information-design.css" text="Employee ID must have 7 digits" textFill="#ff2323">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="phoneNumberErrorLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="350.0" layoutY="95.0" prefHeight="15.0" prefWidth="200.0" text="Please enter a valid phone number" textFill="#ff2323">
+            <Label fx:id="phoneNumberErrorLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="350.0" layoutY="95.0" prefHeight="15.0" prefWidth="200.0" styleClass="warning-text" stylesheets="@employee-information-design.css" text="Please enter a valid phone number" textFill="#ff2323">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
@@ -87,7 +87,7 @@
       </AnchorPane>
       <AnchorPane layoutY="1.0" prefHeight="30.0" prefWidth="200.0" styleClass="header-bar" stylesheets="@employee-information-design.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="employeeAddedLabel" alignment="CENTER" layoutX="200.0" layoutY="7.0" prefHeight="17.0" prefWidth="200.0" text="Employee Added" textFill="#20ae00">
+            <Label fx:id="employeeAddedLabel" alignment="CENTER" layoutX="200.0" layoutY="7.0" prefHeight="17.0" prefWidth="200.0" styleClass="information-text" stylesheets="@employee-information-design.css" text="Employee Added" textFill="#20ae00">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>

@@ -6,13 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -73,6 +77,8 @@ public class EditEmployeeController extends MyWindow implements Initializable
     @FXML
     private Label employeeUpdatedLabel;
     
+    private EmployeeInformationController employeeInformationController = null;
+    
     private PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));;
     
     private String incorrectPhoneNumberMessage = "Please enter a valid phone number";
@@ -102,6 +108,11 @@ public class EditEmployeeController extends MyWindow implements Initializable
 		genderChoiceBox.setItems(FXCollections.observableArrayList(Employee.genders));
 		employeeTypeChoiceBox.setItems(FXCollections.observableArrayList(Employee.employeeTypes));
 		statusChoiceBox.setItems(FXCollections.observableArrayList(Employee.status));
+	}
+	
+	public void setEmployeeInformationController(EmployeeInformationController controller)
+	{
+		employeeInformationController = controller;
 	}
 	
 	public void close()
@@ -137,18 +148,32 @@ public class EditEmployeeController extends MyWindow implements Initializable
 	
 	public void deleteEmployee()
 	{
-		try
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		
+		alert.setTitle("Confirm Action");
+		alert.setHeaderText("Are you sure you want to delete this employee?");
+		alert.setContentText("This action cannot be undone");
+		Optional<ButtonType> option = alert.showAndWait();
+		
+		if (option.get().equals(ButtonType.OK))
 		{
-			connection = DatabaseUtility.connectToDatabase();
-			
-			preparedStatement = connection.prepareStatement("DELETE FROM employees WHERE employeeId = ?");
-			preparedStatement.setString(1, employeeIdLabel.getText());
-			preparedStatement.execute();
-		}
-		catch (SQLException sqle)
-		{
-			System.out.println("Connection error in " + this.getClass().getName() + " deleteEmployee()");
-			sqle.printStackTrace();
+			try
+			{
+				connection = DatabaseUtility.connectToDatabase();
+				
+				preparedStatement = connection.prepareStatement("DELETE FROM employees WHERE employeeId = ?");
+				preparedStatement.setString(1, employeeIdLabel.getText());
+				preparedStatement.execute();
+				
+				employeeInformationController.refreshTable();
+				
+				close();
+			}
+			catch (SQLException sqle)
+			{
+				System.out.println("Connection error in " + this.getClass().getName() + " deleteEmployee()");
+				sqle.printStackTrace();
+			}
 		}
 	}
 	
@@ -190,7 +215,7 @@ public class EditEmployeeController extends MyWindow implements Initializable
 			preparedStatement = connection.prepareStatement("UPDATE employees SET isActive = ?, firstName = ?, lastName = ?, gender = ?, "
 					+ "phoneNumber = ?, position = ?, employeeType = ?, pay = ? WHERE employeeId = ?");
 		
-			preparedStatement.setString(1, "Active");
+			preparedStatement.setString(1, statusChoiceBox.getSelectionModel().getSelectedItem());
 			preparedStatement.setString(2, firstNameTextField.getText());
 			preparedStatement.setString(3, lastNameTextField.getText());
 			preparedStatement.setString(4, genderChoiceBox.getSelectionModel().getSelectedItem());
@@ -207,6 +232,8 @@ public class EditEmployeeController extends MyWindow implements Initializable
 			pauseTransition.setOnFinished(event -> employeeUpdatedLabel.setVisible(false));
 			pauseTransition.setDuration(Duration.seconds(5.0));
 			pauseTransition.play();
+			
+			employeeInformationController.refreshTable();
 		}
 		catch (SQLException sqle)
 		{

@@ -70,6 +70,8 @@ public class AddEmployeeController extends MyWindow implements Initializable
     @FXML
     private Label employeeAddedLabel;
     
+    private EmployeeInformationController employeeInformationController = null;
+    
     private PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));;
     
     private String incorrectEmployeeIdMessage = "Employee ID must have 7 digits";
@@ -100,6 +102,11 @@ public class AddEmployeeController extends MyWindow implements Initializable
 		employeeTypeChoiceBox.setItems(FXCollections.observableArrayList(Employee.employeeTypes));
 		
 		employeeTypeChoiceBox.setOnAction(event -> onEmployeeTypeSelected());
+	}
+	
+	public void setEmployeeInformationController(EmployeeInformationController controller)
+	{
+		employeeInformationController = controller;
 	}
 	
 	public void close()
@@ -188,6 +195,8 @@ public class AddEmployeeController extends MyWindow implements Initializable
 			pauseTransition.setDuration(Duration.seconds(5.0));
 			pauseTransition.setOnFinished(event -> employeeAddedLabel.setVisible(false));
 			pauseTransition.play();
+			
+			employeeInformationController.refreshTable();
 		}
 		catch (SQLException sqle)
 		{

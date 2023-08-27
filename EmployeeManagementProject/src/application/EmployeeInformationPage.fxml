@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,19 +14,15 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EmployeeInformationController">
 	<children>
-		<AnchorPane prefHeight="750.0" prefWidth="950.0" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-			<styleClass>
-				<String fx:value="white-background" />
-				<String fx:value="shadow" />
-			</styleClass>
+		<AnchorPane prefHeight="750.0" prefWidth="950.0" stylesheets="@employee-information-design.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
 			<children>
-				<TextField fx:id="search" layoutX="1.0" layoutY="14.0" prefHeight="30.0" prefWidth="250.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
+				<TextField fx:id="searchTextField" layoutX="1.0" layoutY="14.0" onKeyTyped="#employeeSearch" prefHeight="30.0" prefWidth="220.0" promptText="Search" styleClass="search-textfield" stylesheets="@employee-information-design.css" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0" />
 				<ImageView fitHeight="20.0" fitWidth="20.0" layoutX="23.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@../Images/search.png" />
 					</image>
 				</ImageView>
-				<TableView fx:id="tableView" layoutX="9.0" layoutY="60.0" onMouseClicked="#employeeSelect" prefHeight="299.0" prefWidth="890.0" stylesheets="@dashboardDesign.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+				<TableView fx:id="tableView" layoutX="9.0" layoutY="60.0" onMouseClicked="#employeeSelect" prefHeight="299.0" prefWidth="890.0" stylesheets="@employee-information-design.css" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
 					<columns>
 						<TableColumn fx:id="employeeIdColumn" prefWidth="88.33332824707031" text="Employee ID" />
 						<TableColumn fx:id="firstNameColumn" prefWidth="98.66665649414062" text="First Name" />
@@ -71,34 +68,46 @@
 						<Font name="Arial" size="14.0" />
 					</font>
 				</Label>
-				<Button fx:id="addButton" layoutX="740.0" layoutY="600.0" mnemonicParsing="false" onAction="#launchAddEmployeePage" prefHeight="50.0" prefWidth="150.0" styleClass="add-button" stylesheets="@dashboardDesign.css" text="Add New Employee" />
-				<Button fx:id="editButton" layoutX="560.0" layoutY="600.0" mnemonicParsing="false" onAction="#launchEditEmployeePage" prefHeight="50.0" prefWidth="150.0" styleClass="edit-button" stylesheets="@dashboardDesign.css" text="Edit Employee" />
-            <Label fx:id="employeeIdLabel" layoutX="120.0" layoutY="400.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
-            <Label fx:id="firstNameLabel" layoutX="120.0" layoutY="460.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
-            <Label fx:id="lastNameLabel" layoutX="120.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
-            <Label fx:id="positionLabel" layoutX="410.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
-            <Label fx:id="genderLabel" layoutX="410.0" layoutY="460.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
-            <Label fx:id="phoneNumberLabel" layoutX="740.0" layoutY="400.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
-            <Label fx:id="isActiveLabel" layoutX="410.0" layoutY="400.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
+				<Button fx:id="addButton" layoutX="740.0" layoutY="600.0" mnemonicParsing="false" onAction="#launchAddEmployeePage" prefHeight="50.0" prefWidth="150.0" styleClass="green-button" stylesheets="@employee-information-design.css" text="Add New Employee" />
+				<Button fx:id="editButton" layoutX="560.0" layoutY="600.0" mnemonicParsing="false" onAction="#launchEditEmployeePage" prefHeight="50.0" prefWidth="150.0" styleClass="blue-button" stylesheets="@employee-information-design.css" text="Edit Employee" />
+            <Label fx:id="employeeIdLabel" layoutX="120.0" layoutY="400.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
+            <Label fx:id="firstNameLabel" layoutX="120.0" layoutY="460.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
+            <Label fx:id="lastNameLabel" layoutX="120.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
+            <Label fx:id="positionLabel" layoutX="410.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
+            <Label fx:id="genderLabel" layoutX="410.0" layoutY="460.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
+            <Label fx:id="phoneNumberLabel" layoutX="740.0" layoutY="400.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
+            <Label fx:id="isActiveLabel" layoutX="410.0" layoutY="400.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
             <Label alignment="CENTER_RIGHT" layoutX="300.0" layoutY="407.0" prefWidth="100.0" text="Status:">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="employeeTypeLabel" layoutX="740.0" layoutY="460.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
+            <Label fx:id="employeeTypeLabel" layoutX="740.0" layoutY="460.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
             <Label alignment="CENTER_RIGHT" layoutX="610.0" layoutY="467.0" prefWidth="120.0" text="Employee Type:">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="payLabel" layoutX="740.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" styleClass="label-info" stylesheets="@dashboardDesign.css" />
+            <Label fx:id="payLabel" layoutX="740.0" layoutY="520.0" prefHeight="30.0" prefWidth="150.0" styleClass="text-label" stylesheets="@employee-information-design.css" />
             <Label fx:id="payText" alignment="CENTER_RIGHT" layoutX="610.0" layoutY="527.0" prefWidth="120.0" text="Salary/Wage:">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Button layoutX="265.0" layoutY="638.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+            <Button fx:id="refreshTableButton" layoutX="380.0" layoutY="600.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="50.0" prefWidth="150.0" styleClass="purple-button" stylesheets="@employee-information-design.css" text="Refresh Table" />
+            <Label fx:id="editEmployeeErrorLabel" alignment="CENTER" layoutX="535.0" layoutY="670.0" prefWidth="200.0" text="Please select an employee to edit" textFill="#ff3434">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="statusFilterChoiceBox" layoutX="250.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
+            <ChoiceBox fx:id="genderFilterChoiceBox" layoutX="470.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
+            <ChoiceBox fx:id="employeeTypeFilterChoiceBox" layoutX="690.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
 			</children>
+         <styleClass>
+            <String fx:value="foreground-panel" />
+            <String fx:value="shadow" />
+         </styleClass>
 		</AnchorPane>
 	</children>
 </AnchorPane>

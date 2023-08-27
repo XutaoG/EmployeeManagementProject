@@ -33,7 +33,7 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="employeeUpdatedLabel" alignment="CENTER" layoutX="200.0" layoutY="7.0" prefHeight="17.0" prefWidth="200.0" text="Employee Updated" textFill="#20ae00">
+            <Label fx:id="employeeUpdatedLabel" alignment="CENTER" layoutX="200.0" layoutY="7.0" prefHeight="17.0" prefWidth="200.0" styleClass="information-text" stylesheets="@employee-information-design.css" text="Employee Updated" textFill="#20ae00">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
@@ -75,8 +75,8 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="addEmployeeButton" layoutX="400.0" layoutY="335.0" mnemonicParsing="false" onAction="#editEmployee" prefHeight="30.0" prefWidth="150.0" styleClass="add-button" stylesheets="@employee-information-design.css" text="Confirm Change" />
-            <Button fx:id="cancelButton" layoutX="125.0" layoutY="335.0" mnemonicParsing="false" onAction="#close" prefHeight="30.0" prefWidth="75.0" styleClass="cancel-logout-button" stylesheets="@employee-information-design.css" text="Cancel" />
+            <Button fx:id="addEmployeeButton" layoutX="400.0" layoutY="335.0" mnemonicParsing="false" onAction="#editEmployee" prefHeight="30.0" prefWidth="150.0" styleClass="green-button" stylesheets="@employee-information-design.css" text="Confirm Change" />
+            <Button fx:id="cancelButton" layoutX="125.0" layoutY="335.0" mnemonicParsing="false" onAction="#close" prefHeight="30.0" prefWidth="75.0" styleClass="purple-button" stylesheets="@employee-information-design.css" text="Cancel" />
             <Label alignment="CENTER_RIGHT" layoutX="280.0" layoutY="167.0" prefWidth="110.0" text="Employee Type:">
                <font>
                   <Font name="Arial" size="14.0" />
@@ -90,18 +90,18 @@
             </Label>
             <ChoiceBox fx:id="genderChoiceBox" layoutX="120.0" layoutY="220.0" prefHeight="30.0" prefWidth="150.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
             <ChoiceBox fx:id="employeeTypeChoiceBox" layoutX="400.0" layoutY="160.0" prefHeight="30.0" prefWidth="150.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
-            <Label fx:id="blankFieldErrorLabel" alignment="CENTER_RIGHT" layoutX="350.0" layoutY="287.0" prefHeight="15.0" prefWidth="200.0" text="Please fill out all fields correctly" textFill="#ff2323">
+            <Label fx:id="blankFieldErrorLabel" alignment="CENTER_RIGHT" layoutX="350.0" layoutY="287.0" prefHeight="15.0" prefWidth="200.0" styleClass="warning-text" stylesheets="@employee-information-design.css" text="Please fill out all fields correctly" textFill="#ff2323">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
             <ChoiceBox fx:id="positionChoiceBox" layoutX="400.0" layoutY="100.0" prefHeight="30.0" prefWidth="150.0" styleClass="textfield" stylesheets="@employee-information-design.css" />
-            <Label fx:id="phoneNumberErrorLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="350.0" layoutY="75.0" prefHeight="15.0" prefWidth="200.0" text="Please enter a valid phone number" textFill="#ff2323">
+            <Label fx:id="phoneNumberErrorLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="350.0" layoutY="75.0" prefHeight="15.0" prefWidth="200.0" styleClass="warning-text" stylesheets="@employee-information-design.css" text="Please enter a valid phone number" textFill="#ff2323">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="deleteEmployeeButton" layoutX="225.0" layoutY="335.0" mnemonicParsing="false" onAction="#deleteEmployee" prefHeight="30.0" prefWidth="150.0" styleClass="delete-button" stylesheets="@employee-information-design.css" text="Delete Employee" />
+            <Button fx:id="deleteEmployeeButton" layoutX="225.0" layoutY="335.0" mnemonicParsing="false" onAction="#deleteEmployee" prefHeight="30.0" prefWidth="150.0" styleClass="red-button" stylesheets="@employee-information-design.css" text="Delete Employee" />
             <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="287.0" prefWidth="100.0" text="Active Status:">
                <font>
                   <Font name="Arial" size="14.0" />
