@@ -110,10 +110,7 @@ public class EmployeeInformationController implements Initializable
     
     @FXML
     private Button addButton;
-    
-    @FXML
-    private Button refreshTableButton;
-    
+        
     @FXML
     private Label editEmployeeErrorLabel;
     
@@ -214,7 +211,7 @@ public class EmployeeInformationController implements Initializable
     	}
 		catch (SQLException sqle)
 		{
-			 System.out.println("Connection error in " + this.getClass().getName() + " getEmployeeList");
+			 System.out.println("Connection error in " + this.getClass().getName() + " getEmployeeList()");
 			 sqle.printStackTrace();
 		}
 		
@@ -464,7 +461,7 @@ public class EmployeeInformationController implements Initializable
     	return FXCollections.observableArrayList(filteredList);
     }
     
-    public void refreshTable()
+    public void update()
     {
     	searchTextField.setText("");
     	statusFilterChoiceBox.getSelectionModel().select(0);

@@ -94,7 +94,6 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="refreshTableButton" layoutX="380.0" layoutY="600.0" mnemonicParsing="false" onAction="#refreshTable" prefHeight="50.0" prefWidth="150.0" styleClass="purple-button" stylesheets="@employee-information-design.css" text="Refresh Table" />
             <Label fx:id="editEmployeeErrorLabel" alignment="CENTER" layoutX="535.0" layoutY="670.0" prefWidth="200.0" text="Please select an employee to edit" textFill="#ff3434">
                <font>
                   <Font name="Arial" size="12.0" />

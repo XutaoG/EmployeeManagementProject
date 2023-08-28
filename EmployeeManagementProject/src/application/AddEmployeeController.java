@@ -196,7 +196,7 @@ public class AddEmployeeController extends MyWindow implements Initializable
 			pauseTransition.setOnFinished(event -> employeeAddedLabel.setVisible(false));
 			pauseTransition.play();
 			
-			employeeInformationController.refreshTable();
+			employeeInformationController.update();
 		}
 		catch (SQLException sqle)
 		{

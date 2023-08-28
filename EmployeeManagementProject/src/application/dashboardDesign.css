@@ -118,12 +118,6 @@
 	-fx-border-width: 0px .4px .4px 0px;
 }
 
-.card
-{
-	-fx-background-color: linear-gradient(to bottom right, #12224d, #9c9c9c);
-	-fx-background-radius: 10px;
-}
-
 .white-background
 {
 	-fx-background-color: white;

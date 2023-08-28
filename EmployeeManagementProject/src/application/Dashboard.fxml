@@ -104,21 +104,6 @@
                   <Font name="Consolas" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="salaryButton" layoutX="15.0" layoutY="400.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="0.0" prefWidth="220.0" styleClass="nav-button" stylesheets="@dashboardDesign.css" text="Employee Salary" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/money.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="1.0" />
-                     </effect>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font>
-            </Button>
             <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="100.0" styleClass="logout-button" stylesheets="@dashboardDesign.css" text="Logout" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -163,17 +148,12 @@
          <children>
             <AnchorPane fx:id="homeForm" prefHeight="750.0" prefWidth="950.0" visible="false">
                <children>
-                  <fx:include source="Home.fxml" />
+                  <fx:include fx:id="homeFxml" source="Home.fxml" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="salaryForm" prefHeight="750.0" prefWidth="950.0" visible="false">
+            <AnchorPane fx:id="employeeInformationForm" prefHeight="750.0" prefWidth="950.0" visible="false">
                <children>
-                  <fx:include source="Salary.fxml" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="addEmployeeForm" prefHeight="750.0" prefWidth="950.0" visible="false">
-               <children>
-                  <fx:include source="EmployeeInformationPage.fxml" />
+                  <fx:include fx:id="employeeInformationFxml" source="EmployeeInformationPage.fxml" />
                </children>
             </AnchorPane>
          </children>

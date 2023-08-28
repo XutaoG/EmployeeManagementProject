@@ -165,7 +165,7 @@ public class EditEmployeeController extends MyWindow implements Initializable
 				preparedStatement.setString(1, employeeIdLabel.getText());
 				preparedStatement.execute();
 				
-				employeeInformationController.refreshTable();
+				employeeInformationController.update();
 				
 				close();
 			}
@@ -233,7 +233,7 @@ public class EditEmployeeController extends MyWindow implements Initializable
 			pauseTransition.setDuration(Duration.seconds(5.0));
 			pauseTransition.play();
 			
-			employeeInformationController.refreshTable();
+			employeeInformationController.update();
 		}
 		catch (SQLException sqle)
 		{
