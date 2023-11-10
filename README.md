@@ -10,6 +10,7 @@ Set up local SQL schema with 3 tables "admin" and "employees" (I don't know how 
 1. id (INT)
 2. username (VARCHAR(45))
 3. password (VARCHAR(45))
+
 Manually insert credentials into table to log in.
 
 "employee" table columns: 
