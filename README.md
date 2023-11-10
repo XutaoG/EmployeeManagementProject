@@ -4,7 +4,7 @@ Includes local SQL database integration with standard CRUD operations
 Include interface to track employee information and salaries and sorting functions
 
 ## To run:
-Set up local SQL schema with 3 tables "admin" and "employees"
+Set up local SQL schema with 3 tables "admin" and "employees" (I don't know how to write SQL scripts, sorry)
 
 "admin" table columns: 
 1. id (INT)
