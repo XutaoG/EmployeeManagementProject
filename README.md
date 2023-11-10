@@ -1,5 +1,5 @@
 # JavaFX-Supermarket-Employee-Management-System
-## Graphical user interface project implemented with JavaFX.
+Graphical user interface project implemented with JavaFX.
 # Includes local SQL database integration with standard CRUD operations
 # Include interface to track employee information and salaries and sorting functions
 
