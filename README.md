@@ -6,8 +6,23 @@ Include interface to track employee information and salaries and sorting functio
 ## To run:
 Set up local SQL schema with 3 tables "admin" and "employees"
 
-"admin" table columns: id (INT), username (VARCHAR(45)), password (VARCHAR(45))
+"admin" table columns: 
+1. id (INT)
+2. username (VARCHAR(45))
+3. password (VARCHAR(45))
 Manually insert credentials into table to log in.
 
-"employee" table columns: id (INT), employee_id (VARCHAR(45)), is_active (VARCHAR(45)), firstName (VARCHAR(45)), lastName (VARCHAR(45)), gender (VARCHAR(45)), phoneNumber (VARCHAR(45)), position (VARCHAR(45)), date (SQL_DATE), employeeType (VARCHAR(45)), pay (DOUBLE)
+"employee" table columns: 
+1. id (INT)
+2. employee_id (VARCHAR(45))
+3. is_active (VARCHAR(45))
+4. firstName (VARCHAR(45))
+5. lastName (VARCHAR(45))
+6. gender (VARCHAR(45))
+7. phoneNumber (VARCHAR(45))
+8. position (VARCHAR(45))
+9. date (SQL_DATE)
+10. employeeType (VARCHAR(45))
+11. pay (DOUBLE)
+    
 GUI are used to create, read, edit, delete employees.
