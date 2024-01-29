@@ -1,0 +1,21 @@
+.close
+{
+	-fx-background-color: transparent;
+	-fx-cursor: hand;
+}
+
+.close:hover
+{
+	-fx-background-color: #b53535;
+}
+
+.minimize
+{
+	-fx-background-color: transparent;
+	-fx-cursor: hand;
+}
+
+.minimize:hover
+{
+	-fx-background-color: #c9c9c9;
+}
